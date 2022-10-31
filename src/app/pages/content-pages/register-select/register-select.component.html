@@ -1,0 +1,51 @@
+<!--Registration Page Starts-->
+<section id="regestration">
+    <div class="row auth-height full-height-vh m-0">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div id="selector-wrap">
+            <h5 class="text-center w-100">{{'register-select' | translate}}</h5>
+            <div class="row justify-content-between">
+                <div class="col-lg-6">
+                    <div class="card pb-3 pt-3" [routerLink]="['/pages/signup']" >
+                        <div class="card-content">
+                          <div class="card-body">
+                            <div class="media">
+                              <div class="media-body text-left">
+                                <h5 class="mb-1 info">{{'register.test.title' | translate}}</h5>
+                                <span class="font-small-3">{{'register.test.desc' | translate}}</span>
+                              </div>
+                              <div class="media-right align-self-center">
+                                <i class="ft-book-open success font-large-2 float-right"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card pb-3 pt-3" [routerLink]="['/pages/register']" >
+                        <div class="card-content">
+                          <div class="card-body">
+                            <div class="media">
+                              <div class="media-body text-left">
+                                <h5 class="mb-1 info">{{'register.user.title' | translate}}</h5>
+                                <span class="font-small-3">{{'register.user.desc' | translate}}</span>
+                              </div>
+                              <div class="media-right align-self-center">
+                                <i class="ft-user primary font-large-2 float-right"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <a class="text-secondary font-small-2 mt-2" [routerLink]="['/pages/login']">{{'back' | translate}}</a>
+            </div>
+        </div>
+        </div>
+    </div>
+  </section>
+  <!--Registration Page Ends-->

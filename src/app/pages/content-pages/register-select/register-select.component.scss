@@ -1,0 +1,9 @@
+#selector-wrap{
+    width:900px;
+    max-width: 100%;
+}
+.card:hover{
+    transition: all 0.3s;
+    box-shadow: -8px 8px 20px 3px rgb(25 42 70 / 31%);
+    cursor: pointer;
+}

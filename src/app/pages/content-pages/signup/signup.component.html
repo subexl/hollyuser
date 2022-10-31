@@ -1,0 +1,51 @@
+<section id="regestration">
+    <div class="row auth-height full-height-vh m-0">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="card overflow-hidden p-2">
+          <div class="card-content">
+            <div class="card-body">
+                <h4 class="text-center mb-4">{{'register.test.desc' | translate}}</h4>
+                <form autocomplete="off" class="needs-validation" [formGroup]="candidateForm" (ngSubmit)="onFormSubmit()">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-2 form-group">
+                            <label >{{'firstName' | translate}}</label>
+                            <input type="text" formControlName="firstName" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f.firstName.invalid, 'is-valid': submitted &&  !f.firstName.invalid }" required>
+
+                        </div>
+                        <div class="col-md-6 mb-2 form-group">
+                            <label>{{'lastName' | translate}}</label>
+                            <input type="text" formControlName="lastName" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f.lastName.invalid, 'is-valid': submitted && !f.lastName.invalid }" required>
+
+                        </div>
+                        <div class="col-md-6 mb-2 form-group">
+                            <label>Email</label>
+                            <input type="text" formControlName="email" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f.email.invalid, 'is-valid': submitted && !f.email.invalid }" required>
+                        </div>
+                        <div class="col-md-6 mb-2 form-group">
+                            <label>{{'phone' | translate}}</label>
+                            <input type="text" formControlName="phone" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f.phone.invalid, 'is-valid': submitted && !f.phone.invalid }" required>
+                        </div>
+
+                        <div class="col-md-6 mb-2 form-group">
+                            <label>{{'lang' | translate}}</label>
+                            <ng-select aria-autocomplete="none"  [items]="environment.langs" bindLabel="title" bindValue="id" formControlName="lang" required [ngClass]="{ 'is-invalid': submitted && f.lang.invalid, 'is-valid': submitted && !f.lang.invalid }"></ng-select>
+
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 text-center">
+                            <button class="btn btn-outline-success" type="submit"><i class="fa fa-check mr-2"></i>{{'signup.submit' | translate}}</button>
+                        </div>
+                        <div class="col-lg-3 text-center">
+                            <button [routerLink]="['/pages/login']" class="btn btn-outline-secondary" type="submit"><i class="fa fa-undo mr-2"></i>{{'back' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

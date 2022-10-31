@@ -1,0 +1,22 @@
+@import "~@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
+.ng-submitted ng-select.ng-invalid.ng-touched .ng-select-container {
+    border-color: #dc3545;
+}
+
+#current-location{
+    display: block;
+    font-size: 0.5em;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+app-candidates-list .ngx-datatable .datatable-header,
+app-candidates-list .ngx-datatable .datatable-header datatable-header-cell{
+    overflow: visible !important;
+    position: relative;
+    z-index: 3000;
+}
+
+.cdk-overlay-container {
+    z-index: 2000;
+    box-shadow: 2px 2px 2px;
+}

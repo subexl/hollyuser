@@ -1,0 +1,39 @@
+<ngx-spinner type="ball-newton-cradle"></ngx-spinner>
+<section class="users-view" *ngIf="client">
+        <!-- Media object starts -->
+        <div class="row">
+            <div class="col-12 col-sm-7">
+              <div class="media d-flex align-items-center">
+                      <img *ngIf="client/avatar" src="{{client.avatar}}" alt="user view avatar" class="users-avatar-shadow rounded" height="64" width="64">
+                      <i class="icon-user font-large-3 text-warning"></i>
+                  <div class="media-body ml-3">
+                      <h4>
+                      <span class="users-view-name mr-1">{{client.fullName}}</span>
+                      <span class="text-muted font-medium-1">
+                          <span class="users-view-username">{{client.email}}</span>
+                      </span>
+                      </h4>
+                      <span class="mr-1">ID:</span>
+                      <span class="users-view-id">{{client.id}}</span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-5 d-flex justify-content-end align-items-center">
+              <i class="fa fa-2x fa-qrcode mr-3 cursor-pointer text-success" ngbTooltip="Show QRCode!" (click)=" showQrCode()"></i>
+              <div style="position: relative">
+                  <div ngbDropdown #actionDrop="ngbDropdown">
+                      <button type="button" ngbDropdownAnchor  class="btn btn-outline-warning mr-2" (click)="actionDrop.open();">Actions </button>
+                      <div ngbDropdownMenu aria-labelledby="bulkAction">
+                          <button ngbDropdownItem type="button" ><i class="fa fa-envelope mr-2"></i> Send email</button>
+                          <button ngbDropdownItem type="button" ><i class="ft-message-square mr-2"></i> Send SMS</button>
+                          <button ngbDropdownItem type="button" ><i class="ft-calendar mr-2"></i> Schedule</button>
+                          <button ngbDropdownItem type="button" (click)="openContract()"><i class="ft-file-text mr-2"></i> View Contract</button>
+                      </div>
+                  </div>
+              </div>
+              <a [routerLink]="['/clients/edit/', client.id]" class="btn btn-sm btn-warning px-3 py-1 mr-2"><i class="fa fa-pencil mr-2"></i> Edit</a>
+              <a [routerLink]="['/clients']" class="btn btn-sm btn-outline-black px-3 py-1"><i class="fa fa-undo mr-2"></i>Back</a>
+            </div>
+          </div>
+          <!-- Media object ends -->
+</section>
