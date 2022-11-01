@@ -33,6 +33,7 @@ import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle
 import { createTranslateLoader } from 'app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 
 @NgModule({
@@ -49,12 +50,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         TopMenuDirective,
         NgbModule,
         TranslateModule,
+        UiSwitchModule,
         NgxSpinnerModule
     ],
     imports: [
         RouterModule,
         CommonModule,
         NgbModule,
+        UiSwitchModule,
         TranslateModule.forChild({
             loader: {
                 provide: TranslateLoader,

@@ -40,6 +40,8 @@
               "src/assets/sass/core.scss",
               "src/assets/sass/libs/select.scss",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "node_modules/ngx-ui-switch/ui-switch.component.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -104,9 +106,10 @@
               "src/assets/vendor/pace/pace.min.js"
             ],
             "styles": [
-              "src/assets/css/demo.css",
-              "src/assets/sass/app.scss",
-              "src/styles.css"
+                "src/assets/css/demo.css",
+                "src/assets/sass/app.scss",
+                "node_modules/ngx-toastr/toastr.css",
+                "src/styles.css"
             ],
             "assets": [
               "src/assets",

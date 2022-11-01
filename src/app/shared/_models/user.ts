@@ -5,6 +5,7 @@ export interface User {
     email: string;
     firstName: string;
     id: number;
+    remainingCubes: number;
     invoicedName: string;
     invoicedToOther: boolean;
     lang: string;
@@ -29,6 +30,6 @@ export class User implements User{
     }
 
     get fullName() {
-        return `${this.firstName} ${this.firstName}`;
+        return `${this.firstName} ${this.lastName}`;
     }
 }

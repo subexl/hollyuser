@@ -13,8 +13,9 @@ export class AuthService {
     private currentUserSubject: BehaviorSubject<User>;
 
     constructor(public router: Router, private http: HttpClient) {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
         this.currentUserSubject = new BehaviorSubject<User>(
-            JSON.parse(localStorage.getItem('currentUser'))
+            new User(user)
         );
         this.currentUser = this.currentUserSubject.asObservable();
         if(this.currentUserValue) {
@@ -32,17 +33,12 @@ export class AuthService {
         .post<any>(environment.apiBaseUrl + `auth/clientLogin`, {username, password})
         .pipe(
             map(async user => {
-                // get full user details
                 // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-                const userData = await this.getClient(user.id);
-
-                userData.pipe(map(user => {
-                    user = user;
-                }));
 
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                // tuserData.pipe();
-                this.currentUserSubject.next(user);
+
+
+                this.currentUserSubject.next(new User(user));
 
                 // // set session timeout
                 localStorage.setItem(

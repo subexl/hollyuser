@@ -8,6 +8,7 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 import {
   PerfectScrollbarModule,
@@ -45,6 +46,7 @@ export function createTranslateLoader(http: HttpClient) {
     SharedModule,
     NgbModule,
     NgxSpinnerModule,
+    UiSwitchModule,
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
