@@ -1,3 +1,6 @@
+import { OrderStatus } from "app/globals";
+import { User } from "./user";
+
 export interface Cube{
     id: number;
 	cubeCount: number;
@@ -9,16 +12,20 @@ export interface Cube{
 
 export interface CubeOrder{
     clientId: number;
+    locationId: number;
 	cubeId: number;
 	price: number;
 	cubeCount: number;
 	weekendAccess: boolean;
+    status: OrderStatus;
 }
 
 export class CubeOrder implements CubeOrder {
-    constructor( clientId: number){
-        this.clientId = clientId;
+    constructor( client: User){
+        this.clientId = client.id;
+        this.locationId = client.locationId;
         this.weekendAccess = false;
+        this.status = OrderStatus.PENDING;
     }
 
     selectCube(cube: Cube){

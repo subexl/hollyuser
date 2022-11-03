@@ -24,7 +24,7 @@ export class BuyCubeComponent implements OnInit {
             this.currentUser = user;
         });
         this.currentUser = this.authService.currentUserValue;
-        this.order = new CubeOrder(this.currentUser.id);
+        this.order = new CubeOrder(this.currentUser);
     }
 
     ngOnInit(): void {

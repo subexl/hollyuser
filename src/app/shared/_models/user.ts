@@ -6,6 +6,7 @@ export interface User {
     firstName: string;
     id: number;
     remainingCubes: number;
+    weekendAccess: boolean;
     invoicedName: string;
     invoicedToOther: boolean;
     lang: string;
