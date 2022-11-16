@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { AuthService } from 'app/shared/auth/auth.service';
-import { User } from 'app/shared/_models';
+import { NetopiaRequest, User } from 'app/shared/_models';
 import { Cube, CubeOrder } from 'app/shared/_models/cube';
 import { BasicService } from 'app/shared/_services';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,6 +16,8 @@ export class BuyCubeComponent implements OnInit {
     cubes: Cube[] = [];
     selectedCube: Cube;
     order: CubeOrder;
+    request: NetopiaRequest;
+    @ViewChild('cardPayment', { static : false}) public cardPayment: ElementRef;
 
     constructor(private authService: AuthService,
         private spinner: NgxSpinnerService,
@@ -46,9 +48,16 @@ export class BuyCubeComponent implements OnInit {
 
     buyCube(){
         this.spinner.show();
-        this.basicService.buyCubes(this.order).subscribe( order => {
-            this.spinner.hide();
+        this.basicService.buyCubes(this.order).subscribe( request => {
             // send to Netopia using order details
+            try{
+                this.request = request;
+                setTimeout(() => {
+                    this.cardPayment.nativeElement.submit();
+                }, 100);
+            } catch {
+                this.spinner.hide();
+            }
         }, err => {
             this.spinner.hide();
         });

@@ -97,8 +97,9 @@ export class AuthService {
         return routes;
     }
 
-    getClient(id:number) {
-        return this.http.get<User>(environment.apiBaseUrl + `clients/` +  id);
+    async reloadUser() {
+        const user = await this.http.get<User>(environment.apiBaseUrl + `clients/` +  this.currentUserValue.id).toPromise();
+        console.log(user);
     }
 
 

@@ -1,1 +1,32 @@
-<button class="btn btn-lg btn-outline-success" [routerLink]="['/dash/buycube']" routerLinkActive="router-link-active" ><i class="fa fa-cube mr-2" aria-hidden="true"></i> {{'dash.buyCube' | translate}}</button>
+<div class="row">
+    <div class="col-xl-3 col-lg-6 col-12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h3 class="mb-1" [ngClass]="{ success: currentUser.remainingCubes}">
+                                {{ currentUser.remainingCubes }}
+                            </h3>
+                            <span>{{ 'dash.remainingCubes' | translate }}</span>
+                        </div>
+                        <div class="media-right align-self-center">
+                            <i [routerLink]="['/dash/buycube']" class="ft-plus-circle success font-large-2 float-right pointer" ngbTooltip="{{ 'dash.buyCube' | translate }}" ></i>
+                        </div>
+                    </div>
+                    <ngb-progressbar
+                        type="dark"
+                        [value]="percent"
+                        class="progress-bar-sm"
+                        height="4px"
+                    ></ngb-progressbar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <button class="btn btn-lg btn-outline-success"  [routerLink]="['/dash/buycube']"  routerLinkActive="router-link-active">
+    <i class="fa fa-cube mr-2" aria-hidden="true"></i>
+    {{ 'dash.buyCube' | translate }}
+</button> -->

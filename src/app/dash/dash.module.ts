@@ -4,6 +4,7 @@ import { DashComponent } from './dash.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BuyCubeComponent } from './buy-cube/buy-cube.component';
 import { SharedModule } from 'app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
     {
@@ -14,7 +15,11 @@ const routes: Routes = [
                 component: DashComponent,
             },
             {
-                path: 'buycube',
+                path: 'dash',
+                component: DashComponent,
+            },
+            {
+                path: 'dash/buycube',
                 component: BuyCubeComponent,
             },
         ],
@@ -24,6 +29,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [DashComponent, BuyCubeComponent],
     imports: [
+        TranslateModule,
         CommonModule,
         SharedModule,
         RouterModule.forChild(routes)

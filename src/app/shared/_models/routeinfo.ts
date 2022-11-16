@@ -8,3 +8,10 @@ export interface RouteInfo {
     isExternalLink: boolean;
     submenu : RouteInfo[];
 }
+
+
+export interface NetopiaRequest{
+    url: string;
+    env_key: string;
+    data: string;
+}

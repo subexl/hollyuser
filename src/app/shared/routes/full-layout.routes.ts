@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
 
 export const Full_ROUTES: Routes = [
     {
-        path: 'dash',
+        path: '',
         loadChildren: () =>
             import('../../dash/dash.module').then((m) => m.DashModule),
     },

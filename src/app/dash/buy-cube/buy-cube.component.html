@@ -51,6 +51,11 @@
 </div>
 <ngx-spinner type="ball-newton-cradle"></ngx-spinner>
 
+<form *ngIf="request" #cardPayment action="{{request.url}}" METHOD="POST" name="gateway" target="_self">
+    <input name="env_key" type="hidden" value="{{request.env_key}}" />
+    <input name="data" type="hidden" value="{{request.data}}" />
+</form>
+
 <!-- <pre>
     {{ order | json}}
 </pre>
