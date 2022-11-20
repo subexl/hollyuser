@@ -98,8 +98,9 @@ export class AuthService {
     }
 
     async reloadUser() {
-        const user = await this.http.get<User>(environment.apiBaseUrl + `clients/` +  this.currentUserValue.id).toPromise();
-        console.log(user);
+        const user = await this.http.get<User>(environment.apiBaseUrl + `auth/reload/` +  this.currentUserValue.email).toPromise();
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(new User(user));
     }
 
 

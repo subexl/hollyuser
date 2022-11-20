@@ -54,7 +54,7 @@ export class ConfigService {
         sidebar: {
           collapsed: false,
           size: "sidebar-md",
-          backgroundColor: "flickr",
+          backgroundColor: "black",
           backgroundImage: true,
           backgroundImageURL: "assets/img/sidebar-bg/03.jpg"
         }

@@ -28,7 +28,7 @@
                     <div class="m-0 p-4">
                         <h6 class="text-center">{{'buycube.validity' | translate}}</h6>
                         <p class="text-center mb-0">{{'buycube.validity2' | translate}}</p>
-                        <div class="form-group mb-1 mb-xl-0 text-center">
+                        <div class="form-group mb-1 mb-xl-0 text-center" [hidden]="currentUser.remainingCubes">
                             <ui-switch [(ngModel)]="order.weekendAccess" (change)="onWeekendSwitch($event)" ></ui-switch>
                             <label for="switchery" class="pt-1 pl-2 mt-2">{{'buycube.weekend' | translate}}</label>
                         </div>

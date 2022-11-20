@@ -43,7 +43,11 @@ export class BuyCubeComponent implements OnInit {
 
     selectCube(cube:Cube){
         this.selectedCube = cube;
-        this.order.selectCube(cube);
+        // if buying complement cubes set the weeknd acces to users current acces, and hide input
+        if(this.currentUser.remainingCubes){
+            this.order.weekendAccess = this.currentUser.weekendAccess;
+        }
+        this.order.selectCube(this.selectedCube);
     }
 
     buyCube(){
