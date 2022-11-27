@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { environment } from 'environments/environment';
 import { User } from '../_models';
 
 @Injectable({
@@ -9,7 +12,7 @@ export class UsersService {
 
     constructor(private http: HttpClient) { }
 
-    registerUser( user: User){
-    //    this.http.post()
+    updateAvatar( id: number, avatar: string):Observable  <User>{
+        return this.http.patch<User>(`${environment.apiBaseUrl}clients/${id}`, { avatar });
     }
 }

@@ -1,39 +1,168 @@
 <ngx-spinner type="ball-newton-cradle"></ngx-spinner>
-<section class="users-view" *ngIf="client">
-        <!-- Media object starts -->
-        <div class="row">
-            <div class="col-12 col-sm-7">
-              <div class="media d-flex align-items-center">
-                      <img *ngIf="client/avatar" src="{{client.avatar}}" alt="user view avatar" class="users-avatar-shadow rounded" height="64" width="64">
-                      <i class="icon-user font-large-3 text-warning"></i>
-                  <div class="media-body ml-3">
-                      <h4>
-                      <span class="users-view-name mr-1">{{client.fullName}}</span>
-                      <span class="text-muted font-medium-1">
-                          <span class="users-view-username">{{client.email}}</span>
-                      </span>
-                      </h4>
-                      <span class="mr-1">ID:</span>
-                      <span class="users-view-id">{{client.id}}</span>
+<div class="row">
+    <div class="col-12">
+      <div class="content-header">{{ 'account.edit' | translate }}</div>
+      <p class="content-sub-header mb-1">{{ 'account.editHelper' | translate }}</p>
+    </div>
+  </div>
+  <!-- Account Settings starts -->
+  <div class="row">
+    <div class="col-md-3 mt-3">
+      <!-- Nav tabs -->
+      <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'general'}"
+            (click)="setActiveTab('general')" id="general-tab" data-toggle="tab" role="tab" aria-controls="general"
+            aria-selected="true">
+            <i class="ft-settings mr-1 align-middle"></i>
+            <span class="align-middle">General</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'change-password'}"
+            (click)="setActiveTab('change-password')" id="change-password-tab" data-toggle="tab" role="tab"
+            aria-controls="change-password" aria-selected="false">
+            <i class="ft-lock mr-1 align-middle"></i>
+            <span class="align-middle">{{ 'account.changePassword' | translate }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'notifications'}"
+            (click)="setActiveTab('notifications')" id="notifications-tab" data-toggle="tab" role="tab"
+            aria-controls="notifications" aria-selected="false">
+            <i class="ft-bell mr-1 align-middle"></i>
+            <span class="align-middle">Notifications</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <!-- Tab panes -->
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="tab-content">
+              <!-- General Tab -->
+              <div class="tab-pane" [ngClass]="{active: activeTab === 'general'}" id="general" role="tabpanel"
+                aria-labelledby="general-tab">
+                <div class="media">
+                    <img *ngIf="client.avatar" src="{{client.avatar}}" alt="profile-img" class="rounded mr-3 img-thumbnail" height="64" width="64">
+                    <i  *ngIf="!client.avatar"  class="icon-user font-large-3 text-warning mr-3"></i>
+                  <div class="media-body">
+                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-start px-0 mb-sm-2">
+                      <label class="btn btn-sm bg-light-success mb-sm-0" (click)="openUploader()">{{ 'account.uploadPhoto' | translate }}</label>
+                      <button class="btn btn-sm bg-light-secondary ml-sm-2">{{ 'account.clear' | translate }}</button>
+                    </div>
+                    <p class="text-muted mb-0 mt-1 mt-sm-0">
+                      <small>{{ 'account.allowedTypes' | translate }}</small>
+                    </p>
                   </div>
-              </div>
+                </div>
+                <hr class="mt-1 mt-sm-2">
+                <app-edit></app-edit>
             </div>
-            <div class="col-12 col-sm-5 d-flex justify-content-end align-items-center">
-              <i class="fa fa-2x fa-qrcode mr-3 cursor-pointer text-success" ngbTooltip="Show QRCode!" (click)=" showQrCode()"></i>
-              <div style="position: relative">
-                  <div ngbDropdown #actionDrop="ngbDropdown">
-                      <button type="button" ngbDropdownAnchor  class="btn btn-outline-warning mr-2" (click)="actionDrop.open();">Actions </button>
-                      <div ngbDropdownMenu aria-labelledby="bulkAction">
-                          <button ngbDropdownItem type="button" ><i class="fa fa-envelope mr-2"></i> Send email</button>
-                          <button ngbDropdownItem type="button" ><i class="ft-message-square mr-2"></i> Send SMS</button>
-                          <button ngbDropdownItem type="button" ><i class="ft-calendar mr-2"></i> Schedule</button>
-                          <button ngbDropdownItem type="button" (click)="openContract()"><i class="ft-file-text mr-2"></i> View Contract</button>
+
+              <!-- Change Password Tab -->
+              <div class="tab-pane" [ngClass]="{active: activeTab === 'change-password'}" id="change-password"
+                role="tabpanel" aria-labelledby="change-password-tab">
+                <!-- <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordFormSubmit()">
+                  <div class="form-group">
+                    <label for="old-password">Old Password</label>
+                    <div class="controls">
+                      <input type="password" formControlName="oldPassword" class="form-control" placeholder="Old Password"
+                        [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.oldPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.oldPassword.invalid }"
+                        required>
+                      <div
+                        *ngIf="changePasswordFormSubmitted && (cpf.oldPassword.invalid || cpf.oldPassword.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
                       </div>
+                    </div>
                   </div>
+                  <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <div class="controls">
+                      <input type="password" formControlName="newPassword" class="form-control" placeholder="New Password"
+                        [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.newPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.newPassword.invalid }"
+                        required>
+                      <div
+                        *ngIf="changePasswordFormSubmitted && (cpf.newPassword.invalid || cpf.newPassword.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="retype-new-password">Retype New Password</label>
+                    <div class="controls">
+                      <input type="password" formControlName="retypeNewPassword" class="form-control"
+                        placeholder="New Password"
+                        [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.retypeNewPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.retypeNewPassword.invalid }"
+                        required>
+                      <div
+                        *ngIf="changePasswordFormSubmitted && (cpf.retypeNewPassword.invalid || cpf.retypeNewPassword.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-sm-row flex-column justify-content-end">
+                    <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
+                    <button type="reset" class="btn btn-secondary mb-1">Cancel</button>
+                  </div>
+                </form> -->
               </div>
-              <a [routerLink]="['/clients/edit/', client.id]" class="btn btn-sm btn-warning px-3 py-1 mr-2"><i class="fa fa-pencil mr-2"></i> Edit</a>
-              <a [routerLink]="['/clients']" class="btn btn-sm btn-outline-black px-3 py-1"><i class="fa fa-undo mr-2"></i>Back</a>
+
+              <!-- Notifications Tab -->
+              <div class="tab-pane" [ngClass]="{active: activeTab === 'notifications'}" id="notifications" role="tabpanel"
+                aria-labelledby="notifications-tab">
+                <div class="row">
+                  <h6 class="col-12 text-bold-400 pl-0">Activity</h6>
+                  <div class="col-12 mb-2">
+                    <div class="custom-control custom-switch custom-control-inline">
+                      <input id="switch1" type="checkbox" class="custom-control-input" checked>
+                      <label for="switch1" class="custom-control-label">Email me when someone comments on my
+                        article</label>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-2">
+                    <div class="custom-control custom-switch custom-control-inline">
+                      <input id="switch2" type="checkbox" class="custom-control-input" checked>
+                      <label for="switch2" class="custom-control-label">Email me when someone answers on my form</label>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-2">
+                    <div class="custom-control custom-switch custom-control-inline">
+                      <input id="switch3" type="checkbox" class="custom-control-input" disabled>
+                      <label for="switch3" class="custom-control-label">Email me when someone follows me</label>
+                    </div>
+                  </div>
+                  <h6 class="col-12 text-bold-400 pl-0 mt-3">Application</h6>
+                  <div class="col-12 mb-2">
+                    <div class="custom-control custom-switch custom-control-inline">
+                      <input id="switch4" type="checkbox" class="custom-control-input" checked>
+                      <label for="switch4" class="custom-control-label">News and announcements</label>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-2">
+                    <div class="custom-control custom-switch custom-control-inline">
+                      <input id="switch5" type="checkbox" class="custom-control-input" disabled>
+                      <label for="switch5" class="custom-control-label">Weekly product updates</label>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-2">
+                    <div class="custom-control custom-switch custom-control-inline">
+                      <input id="switch6" type="checkbox" class="custom-control-input" checked>
+                      <label for="switch6" class="custom-control-label">Weekly blog digest</label>
+                    </div>
+                  </div>
+                  <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                    <button type="button" class="btn btn-primary mr-sm-2 mb-1">Save changes</button>
+                    <button type="button" class="btn btn-secondary mb-1">Cancel</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- Media object ends -->
-</section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Account Settings ends -->

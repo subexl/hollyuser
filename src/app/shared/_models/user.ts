@@ -34,4 +34,8 @@ export class User implements User{
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
     }
+
+    getQrCodeData(){
+        return this.id.toString();
+    }
 }

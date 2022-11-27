@@ -10,6 +10,7 @@ import { BasicService } from 'app/shared/_services';
 })
 export class DashComponent implements OnInit {
 
+    qrCollapsed = true;
     currentUser: User;
     percent = 0;
     orders: CubeOrder[] = [];

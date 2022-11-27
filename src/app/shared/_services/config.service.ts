@@ -31,89 +31,48 @@ export interface ITemplateConfig
   providedIn: "root"
 })
 export class ConfigService {
-  public templateConf: ITemplateConfig = this.setConfigValue();
-  templateConfSubject = new BehaviorSubject<ITemplateConfig>(this.templateConf);
-  templateConf$ = this.templateConfSubject.asObservable();
+    savedConfig = localStorage.getItem('templateConf');
+    public templateConf: ITemplateConfig ;
+    templateConfSubject ;
+    templateConf$;
+    constructor() {
+        this.templateConf = this.savedConfig ? JSON.parse(this.savedConfig) : this.setConfigValue();
+        this.templateConfSubject = new BehaviorSubject<ITemplateConfig>(this.templateConf);
+        this.templateConf$ = this.templateConfSubject.asObservable();
 
-  constructor() {
-  }
+    }
 
   // Default configurations for Light layout. Please check *customizer.service.ts* for different colors and bg images options
 
-  setConfigValue() {
-    return this.templateConf = {
-      layout: {
-        variant: "Light",
-        menuPosition: "Side",
-        customizer: {
-          hidden: true
-        },
-        navbar: {
-          type: 'Static'
-        },
-        sidebar: {
-          collapsed: false,
-          size: "sidebar-md",
-          backgroundColor: "black",
-          backgroundImage: true,
-          backgroundImageURL: "assets/img/sidebar-bg/03.jpg"
+    setConfigValue() {
+        return this.templateConf = {
+        layout: {
+            variant: "Dark",
+            menuPosition: "Side",
+            customizer: {
+            hidden: false
+            },
+            navbar: {
+            type: 'Static'
+            },
+            sidebar: {
+            collapsed: false,
+            size: "sidebar-sm",
+            backgroundColor: "black",
+            backgroundImage: true,
+            backgroundImageURL: "assets/img/sidebar-bg/03.jpg"
+            }
         }
-      }
-    };
-  }
-
-  // Default configurations for Dark layout. Please check *customizer.service.ts* for different colors and bg images options
-
-  // setConfigValue() {
-  //   return this.templateConf = {
-  //     layout: {
-  //       variant: "Dark",
-  //       menuPosition: "Side",
-  //       customizer: {
-  //         hidden: true
-  //       },
-  //       navbar: {
-  //         type: 'Static'
-  //       },
-  //       sidebar: {
-  //         collapsed: false,
-  //         size: "sidebar-md",
-  //         backgroundColor: "black",
-  //         backgroundImage: true,
-  //         backgroundImageURL: "assets/img/sidebar-bg/01.jpg"
-  //       }
-  //     }
-  //   };
-  // }
-
-  // Default configurations for Transparent layout. Please check *customizer.service.ts* for different colors and bg images options
-
-  // setConfigValue() {
-  //   return this.templateConf = {
-  //     layout: {
-  //       variant: "Transparent",
-  //       menuPosition: "Side",
-  //       customizer: {
-  //         hidden: true
-  //       },
-  //       navbar: {
-  //         type: 'Static'
-  //       },
-  //       sidebar: {
-  //         collapsed: false,
-  //         size: "sidebar-md",
-  //         backgroundColor: "bg-glass-1",
-  //         backgroundImage: true,
-  //         backgroundImageURL: ""
-  //       }
-  //     }
-  //   };
-  // }
+        };
+    }
 
 
   applyTemplateConfigChange(tempConfig: ITemplateConfig) {
     this.templateConf = Object.assign(this.templateConf, tempConfig);
     this.templateConfSubject.next(this.templateConf);
+
+    localStorage.setItem('templateConf',JSON.stringify(this.templateConf));
+
   }
 
 }

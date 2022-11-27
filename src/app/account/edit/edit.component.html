@@ -1,0 +1,47 @@
+<div class="card p-2">
+    <form autocomplete="off" class="needs-validation" (ngSubmit)="onFormSubmit()" #editForm="ngForm">
+        <div class="form-row">
+            <div class="col-md-4 mb-2 form-group">
+                <label >{{ 'firstName' | translate }}</label>
+                <input type="text" [(ngModel)]="client.firstName" name="firstName" class="form-control" #firstname="ngModel"
+                [ngClass]="{ 'is-invalid': !client.firstName && firstname.touched , 'is-valid':  client.firstName  && firstname.touched }" required>
+
+            </div>
+            <div class="col-md-4 mb-2 form-group">
+                <label>{{ 'lastName' | translate }}</label>
+                <input type="text" [(ngModel)]="client.lastName" class="form-control" name="lastName"   #lastName="ngModel"
+                [ngClass]="{ 'is-invalid': !client.lastName && lastName.touched , 'is-valid':  client.lastName  && lastName.touched }" required>
+
+            </div>
+            <div class="col-md-4 mb-2 form-group">
+                <label>Email</label>
+                <input readonly type="email" [(ngModel)]="client.email" class="form-control"  name="email"  #email="ngModel"
+                [ngClass]="{ 'is-invalid': !client.email && email.touched , 'is-valid':  client.email  && email.touched }"  required>
+            </div>
+            <div class="col-md-4 mb-2 form-group">
+                <label>{{ 'phone' | translate }}</label>
+                <input type="text" [(ngModel)]="client.phone" class="form-control"  name="phone" #phone="ngModel"  minlength="10"
+                [ngClass]="{ 'is-invalid': (!client.phone  && phone.touched) || phone.invalid , 'is-valid':  client.phone  && phone.touched && phone.valid }"  required>
+            </div>
+            <div class="col-md-4 mb-2 form-group">
+                <label>{{ 'cnp' | translate }}</label>
+                <input type="text" [(ngModel)]="client.cnp" class="form-control"  name="cnp" #cnp="ngModel"  minlength="10"
+                [ngClass]="{ 'is-invalid': (!client.cnp  && cnp.touched) || cnp.invalid , 'is-valid':  client.cnp  && cnp.touched && cnp.valid }"  required>
+            </div>
+
+
+        </div>
+        <hr>
+        <div class="row justify-content-center">
+            <div class="col-lg-3 text-center">
+                <button class="btn btn-outline-success mb-2 mb-lg-0" type="submit" [disabled]="!editForm.form.valid"><i class="fa fa-check mr-2"></i>
+                    {{ 'account.submit' | translate }}</button>
+            </div>
+            <div class="col-lg-3 text-center">
+                <button type="button" class="btn btn-outline-secondary" (click)="restoreForm()">
+                    <i class="fa fa-times mr-2"></i>{{ 'cancel' | translate }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

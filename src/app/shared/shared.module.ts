@@ -34,6 +34,7 @@ import { createTranslateLoader } from 'app/app.module';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { UiSwitchModule } from 'ngx-ui-switch';
         NgbModule,
         TranslateModule,
         UiSwitchModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        QRCodeModule
     ],
     imports: [
         RouterModule,
@@ -73,7 +75,8 @@ import { UiSwitchModule } from 'ngx-ui-switch';
         ClickOutsideModule,
         AutocompleteModule,
         PipeModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        QRCodeModule
     ],
     declarations: [
         FooterComponent,

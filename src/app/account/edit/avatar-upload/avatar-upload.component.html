@@ -1,0 +1,36 @@
+<div class="p-2">
+    <input #fileInput id="fileInput" type="file" (change)="fileChangeEvent($event)" style="display:none;" />
+    <div class="row justify-content-center">
+        <div *ngIf="loading" class="col-12 text-center p-3">
+            <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="col-12 col-lg-6">
+            <p class="mb-0 text-center" *ngIf="croppedImage">{{'account.uploadedImage' | translate}}</p>
+            <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="300"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+        </div>
+        <div class="col-10 col-lg-4">
+            <div class="col-12">
+                <p *ngIf="croppedImage" class="pt-2 mb-0 text-center">{{'account.croppedImage' | translate}}</p>
+                <img *ngIf="croppedImage" [src]="croppedImage" class="shadow croppedImage img-thumbnail" />
+            </div>
+            <div class="col-12 mt-2">
+                <button  class="btn btn-success btn-lg btn-block mb-3" *ngIf="croppedImage" type="button" (click)="uploadavatar()"><i class="ft-save mr-1"></i>{{'account.submit' | translate}}</button>
+                <button class="btn btn-lg btn-outline-secondary btn-block" type="button" (click)="activeModal.close('Close click')"><i class="ft-arrow-left mr-1"></i> {{'cancel' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

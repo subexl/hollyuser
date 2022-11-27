@@ -26,6 +26,8 @@ import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/_services/window.service';
 import { JwtInterceptor } from "./shared/_helpers/jwt.interceptor";
+import { BrowserModule } from "@angular/platform-browser";
+import { ToastrModule } from "ngx-toastr";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -41,6 +43,7 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent],
   imports: [
     HttpClientModule,
+    BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
@@ -56,7 +59,8 @@ export function createTranslateLoader(http: HttpClient) {
         defaultLanguage: 'ro',
     }),
     PerfectScrollbarModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService,
