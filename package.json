@@ -45,7 +45,7 @@
     "moment": "^2.29.4",
     "ng-click-outside": "8.0.0",
     "ngx-custom-validators": "11.0.1",
-    "ngx-device-detector": "3.0.0",
+    "ngx-device-detector": "^3.0.0",
     "ngx-image-cropper": "^6.3.1",
     "ngx-perfect-scrollbar": "10.0.1",
     "ngx-spinner": "^13.1.1",

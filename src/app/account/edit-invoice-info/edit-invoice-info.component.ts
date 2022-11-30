@@ -2,15 +2,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from 'app/shared/auth/auth.service';
 import { User } from 'app/shared/_models';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as addressInfo from 'app/shared/data/cities';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  selector: 'app-edit-invoice-info',
+  templateUrl: './edit-invoice-info.component.html',
+  styleUrls: ['./edit-invoice-info.component.scss']
 })
-export class EditComponent implements OnInit {
+export class EditInvoiceInfoComponent implements OnInit {
 
     client: User;
+    addressInfo = addressInfo;
     initialValue: User; //used to restore
     @Output() notify = new EventEmitter();
 

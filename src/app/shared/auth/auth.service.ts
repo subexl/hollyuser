@@ -69,10 +69,16 @@ export class AuthService {
           this.http.get<any>(environment.apiBaseUrl + 'loadDBData').subscribe(data => {
             const roles = {};
             const locations = {};
+            const cities = {};
+            const counties = {};
             Object.keys(data.roles).map((key) => roles[data.roles[key].id] = data.roles[key]);
             Object.keys(data.locations).map((key) => locations[data.locations[key].id] = data.locations[key]);
+            Object.keys(data.cities).map((key) => cities[data.cities[key].id] = data.cities[key]);
+            Object.keys(data.counties).map((key) => counties[data.counties[key].id] = data.counties[key]);
 
             const dbData = {
+                cities,
+                counties,
                 roles,
                 locations,
                 CandidateStatusesList: data.CandidateStatusesList,
@@ -101,6 +107,14 @@ export class AuthService {
         const user = await this.http.get<User>(environment.apiBaseUrl + `auth/reload/` +  this.currentUserValue.email).toPromise();
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(new User(user));
+    }
+
+    updatePassword( id: number, oldPassword: string, newPassword:string):Observable<any>{
+        return this.http.patch<any>(`${environment.apiBaseUrl}clients/updatePassword/${id}`, { oldPassword, newPassword });
+    }
+
+    updateUserData( user: User):Observable<User>{
+        return this.http.patch<User>(`${environment.apiBaseUrl}clients/${user.id}`, user);
     }
 
 
