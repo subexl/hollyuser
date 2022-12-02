@@ -47,10 +47,10 @@ export class ConfigService {
     setConfigValue() {
         return this.templateConf = {
         layout: {
-            variant: "Dark",
+            variant: "Light",
             menuPosition: "Side",
             customizer: {
-            hidden: false
+                hidden: true
             },
             navbar: {
             type: 'Static'

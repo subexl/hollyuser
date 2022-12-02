@@ -9,6 +9,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 
 import {
   PerfectScrollbarModule,
@@ -51,6 +52,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgxSpinnerModule,
     NgxDatatableModule,
     UiSwitchModule,
+    AngularSignaturePadModule,
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,

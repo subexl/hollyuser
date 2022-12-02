@@ -1,3 +1,4 @@
+import { Candidate } from "./candidate";
 import { Location } from "./location";
 export interface User {
     id: number;
@@ -26,6 +27,7 @@ export interface User {
     signature: string;
     token?: string;
     password?: string;
+    note?: string;
 }
 
 
@@ -36,6 +38,23 @@ export class User implements User{
                 this[i] = values[i];
             }
         }
+
+        this.invoicedToOther = false;
+        this.source = 'online';
+    }
+
+    createFromCandidate(candidate: Candidate){
+        this.firstName = candidate.firstName;
+        this.lastName = candidate.lastName;
+        this.email = candidate.email;
+        this.phone = candidate.phone;
+        this.locationId = candidate.locationId;
+        this.lang = candidate.lang;
+        this.note = candidate.note || '';
+        this.signature = '';
+        this.avatar = '';
+        this.invoicedFirstName = '';
+        this.invoicedLastName = '';
     }
 
     get fullName() {

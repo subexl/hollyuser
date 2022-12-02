@@ -1,3 +1,5 @@
+import { Location } from "./location";
+
 export interface Candidate {
     id: number;
     firstName: string;
@@ -6,6 +8,7 @@ export interface Candidate {
     phone: string;
     createdAt: Date;
     location: Location;
+    locationId: number
     status: number;
     statusName: string;
     lang: string;

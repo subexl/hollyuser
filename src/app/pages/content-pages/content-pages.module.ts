@@ -14,6 +14,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { RegisterSelectComponent } from './register-select/register-select.component';
 import { SignupSuccessComponent } from './signup/signup-success/signup-success.component';
+import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { SignupSuccessComponent } from './signup/signup-success/signup-success.c
         NgbModule,
         NgxSpinnerModule,
         NgSelectModule,
+        AngularSignaturePadModule,
         SharedModule
     ],
     declarations: [

@@ -245,9 +245,9 @@
             </a>
             <div class="dropdown-menu text-left dropdown-menu-right m-0 pb-0" aria-labelledby="dropdownBasic2"
               ngbDropdownMenu>
-              <a class="dropdown-item" href="javascript:;">
+              <a class="dropdown-item" (click)="showQrCode()">
                 <div class="d-flex align-items-center">
-                  <i class="ft-edit mr-2"></i><span>Edit Profile</span>
+                  <i class="fa fa-qrcode mr-2"></i><span>Arata codul QR</span>
                 </div>
               </a>
               <div class="dropdown-divider"></div>
@@ -272,3 +272,10 @@
 
 
 </nav>
+
+<!-- QR code -->
+<ng-template #qrcode>
+    <div class="text-center">
+        <qrcode [qrdata]="currentUser.getQrCodeData()" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+</ng-template>

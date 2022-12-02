@@ -26,7 +26,10 @@ export class DashComponent implements OnInit {
         private device: DeviceDetectorService,
         private basicService: BasicService) {
 
-
+        this.authService.currentUser.subscribe((user) => {
+            this.currentUser = user;
+        });
+        this.currentUser = this.authService.currentUserValue;
 
     }
 
@@ -56,7 +59,9 @@ export class DashComponent implements OnInit {
 
         this.isMobile = this.device.isMobile();
         this.isTablet = this.device.isTablet();
+
         this.authService.reloadUser();
+
         this.basicService.getOrders(this.currentUser.id).subscribe( orders => {
             this.orders = orders;
         });

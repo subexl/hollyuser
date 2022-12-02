@@ -23,7 +23,8 @@ export class LoginPageComponent {
   });
 
 
-  constructor(private router: Router, private authService: AuthService,
+  constructor(private router: Router,
+    private authService: AuthService,
     private spinner: NgxSpinnerService) {
   }
 

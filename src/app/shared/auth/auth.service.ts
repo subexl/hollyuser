@@ -34,7 +34,7 @@ export class AuthService {
         .pipe(
             map(async user => {
                 // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-                const { avatar, ...payload } = user;
+                const { avatar,signature, ...payload } = user;
                 localStorage.setItem('currentUser', JSON.stringify(payload));
 
 

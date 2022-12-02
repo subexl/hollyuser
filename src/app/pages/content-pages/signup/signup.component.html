@@ -4,6 +4,7 @@
         <div class="card overflow-hidden p-2">
           <div class="card-content">
             <div class="card-body">
+                <h2 class="text-center mb-3"><i class="ft-book-open success font-large-3"></i></h2>
                 <h4 class="text-center mb-4">{{'register.test.desc' | translate}}</h4>
                 <form autocomplete="off" class="needs-validation" [formGroup]="candidateForm" (ngSubmit)="onFormSubmit()">
                     <div class="form-row">
@@ -39,7 +40,7 @@
                             <button class="btn btn-outline-success" type="submit"><i class="fa fa-check mr-2"></i>{{'signup.submit' | translate}}</button>
                         </div>
                         <div class="col-lg-3 text-center">
-                            <button [routerLink]="['/pages/login']" class="btn btn-outline-secondary" type="submit"><i class="fa fa-undo mr-2"></i>{{'back' | translate}}</button>
+                            <button [routerLink]="['/pages/register-select']" class="btn btn-outline-secondary" type="submit"><i class="fa fa-undo mr-2"></i>{{'back' | translate}}</button>
                         </div>
                     </div>
                 </form>

@@ -6,88 +6,191 @@
         <div class="card-content">
           <div class="card-body auth-img">
             <div class="row m-0">
-              <div
-                class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center text-center auth-img-bg py-2">
-                <img src="assets/img/gallery/register.png" alt="" class="img-fluid" width="350" height="230">
-              </div>
-              <div class="col-lg-6 col-md-12 px-4 py-3">
-                <h4 class="card-title mb-2">Create Account</h4>
-                <p>Fill the below form to create a new account.</p>
+                <div [ngClass]="{'col-lg-6': !candidate, 'col-lg-4': candidate}" class="d-none d-lg-flex justify-content-center align-items-center text-center auth-img-bg py-2">
+                    <img src="assets/img/login.png" alt="" class="img-fluid">
+                </div>
+                <div [ngClass]="{'col-lg-6': !candidate, 'col-lg-8': candidate}" class=" col-md-12 px-4 py-3">
+                    <h4 class="card-title mb-2">{{'register.user.desc' | translate}}</h4>
+                    <!-- candidate verify -->
+                    <div [hidden]="candidate">
+                        <p class="font-small-2">Crearea contului este posibil doar daca ati trecut deja de ora de proba!<br>
+                            Va rugam folositi aceeasi adresa de mail cu care v-ati inregistrat la Ziua Portilor Deschise!</p>
 
-                <form [formGroup]="registerForm">
-                  <div class="form-group">
-                    <input type="text" formControlName="firstName" class="form-control mb-2" placeholder="First Name"
-                      [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.firstName.invalid, 'is-valid': registerFormSubmitted && !rf.firstName.invalid }"
-                      required>
-                    <div *ngIf="registerFormSubmitted && (rf.firstName.invalid || rf.firstName.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> First Name is
-                      required</div>
-                  </div>
+                        <form [formGroup]="registerForm">
+                            <!-- <div class="form-group">
+                                <input type="text" formControlName="firstName" class="form-control mb-2" placeholder="{{'firstName' | translate}}"
+                                [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.firstName.invalid, 'is-valid': registerFormSubmitted && !rf.firstName.invalid }" required>
+                            </div>
 
-                  <div class="form-group">
-                    <input type="text" formControlName="lastName" class="form-control mb-2" placeholder="Last Name"
-                      [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.lastName.invalid, 'is-valid': registerFormSubmitted && !rf.lastName.invalid }"
-                      required>
-                    <div *ngIf="registerFormSubmitted && (rf.lastName.invalid || rf.lastName.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Last Name is
-                      required</div>
-                  </div>
+                            <div class="form-group">
+                                <input type="text" formControlName="lastName" class="form-control mb-2" placeholder="{{'lastName' | translate}}"
+                                [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.lastName.invalid, 'is-valid': registerFormSubmitted && !rf.lastName.invalid }" required>
+                            </div> -->
 
-                  <div class="form-group">
-                    <input type="email" formControlName="email" class="form-control mb-2" placeholder="Email"
-                      [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.email.invalid, 'is-valid': registerFormSubmitted && !rf.email.invalid }"
-                      required>
-                    <div *ngIf="registerFormSubmitted && (rf.email.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Email is
-                      required</div>
-                    <div *ngIf="registerFormSubmitted &&  rf.email.errors?.email" class="help-block mt-1 text-danger"> <i
-                        class="ft-alert-circle align-middle"></i> Email must be a valid email address</div>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" formControlName="password" class="form-control mb-2" placeholder="Password"
-                      [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.password.invalid, 'is-valid': registerFormSubmitted && !rf.password.invalid }"
-                      required>
-                    <div *ngIf="registerFormSubmitted && (rf.password.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Password is
-                      required
+                            <div class="form-group">
+                                <input type="email" autocomplete="off" formControlName="email" class="form-control mb-2" placeholder="Email"
+                                [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.email.invalid, 'is-valid': registerFormSubmitted && !rf.email.invalid }" required>
+                                <div *ngIf="registerFormSubmitted &&  rf.email.errors?.email" class="help-block mt-1 text-danger"> <i
+                                    class="ft-alert-circle align-middle"></i> Adresa email nu e corecta!</div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" formControlName="password" class="form-control mb-2" placeholder="{{'Parola' | translate}}"
+                                [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.password.invalid, 'is-valid': registerFormSubmitted && !rf.password.invalid }" required>
+
+                                <div *ngIf="registerFormSubmitted && (!rf.password.errors?.required && rf.password.errors?.minlength)"
+                                class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Parola trebuie sa continua minim 4 caractere </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" formControlName="confirmPassword" class="form-control mb-2"
+                                placeholder="Confirma Parola"
+                                [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.confirmPassword.invalid, 'is-valid': registerFormSubmitted && !rf.confirmPassword.invalid }" required>
+
+                                <div *ngIf="registerFormSubmitted && (rf.confirmPassword.errors?.mustMatch)"  class="help-block mt-1 text-danger">
+                                    <i class="ft-alert-circle align-middle"></i> Parolele nu sunt identice
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between flex-sm-row flex-column">
+                                <a class="btn btn-outline-success" (click)="onSubmitRegister()"><i class="fa fa-arrow-right mr-2"></i> {{'Continua' | translate}}</a>
+                                <a [routerLink]="['/pages/register-select']" class="btn btn-outline-secondary mb-2 mb-sm-0"><i class="fa fa-undo mr-2"></i> {{'back' | translate}}</a>
+                            </div>
+                        </form>
                     </div>
-                    <div *ngIf="registerFormSubmitted && (!rf.password.errors?.required && rf.password.errors?.minlength)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Password must be
-                      at least 6 characters
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" formControlName="confirmPassword" class="form-control mb-2"
-                      placeholder="Confirm Password"
-                      [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.confirmPassword.invalid, 'is-valid': registerFormSubmitted && !rf.confirmPassword.invalid }"
-                      required>
-                    <div
-                      *ngIf="registerFormSubmitted && (rf.confirmPassword.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Confirm Password is
-                      required
-                    </div>
-                    <div *ngIf="registerFormSubmitted && (rf.confirmPassword.errors?.mustMatch)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Passwords must
-                      match
-                    </div>
-                  </div>
-                  <div class="form-group">
-                  <div class="checkbox auth-checkbox  ">
-                    <input type="checkbox" id="auth-login" formControlName="acceptTerms" class="form-control">
-                    <label for="auth-login"><span class="font-small-2 mb-3 font-weight-normal">I accept the terms & conditions</span></label>
-                    <div *ngIf="registerFormSubmitted && (rf.acceptTerms.invalid || rf.acceptTerms.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Accept Ts & Cs is required
-                    </div>
-                  </div>
-                  </div>
-                  <div class="d-flex justify-content-between flex-sm-row flex-column">
-                    <a [routerLink]="['/pages/login']" class="btn btn-outline-primary mb-2 mb-sm-0">{{'back' | translate}}</a>
-                    <a class="btn btn-primary" (click)="onSubmit()">Register</a>
-                  </div>
-                </form>
+                    <!-- candidate verify -->
+
+                    <div [hidden]="!candidate">
+                        <form autocomplete="off" class="needs-validation" (ngSubmit)="onFormSubmit()" #candidForm="ngForm">
+                            <div *ngIf="client" class="form row">
+                                <div class="col-md-6 mb-0 form-group">
+                                    <label >{{'firstName' | translate}}</label>
+                                    <input type="text" [(ngModel)]="client.firstName" name="firstName" class="form-control" #firstname="ngModel"
+                                    [ngClass]="{ 'is-invalid': !client.firstName && firstname.touched , 'is-valid':  client.firstName  && firstname.touched }" required>
+
+                                </div>
+                                <div class="col-md-6 mb-0 form-group">
+                                    <label>{{'lastName' | translate}}</label>
+                                    <input type="text" [(ngModel)]="client.lastName" class="form-control" name="lastName"   #lastName="ngModel"
+                                    [ngClass]="{ 'is-invalid': !client.lastName && lastName.touched , 'is-valid':  client.lastName  && lastName.touched }" required>
+
+                                </div>
+                                <div class="col-md-6 mb-0 form-group">
+                                    <label>Email</label>
+                                    <input type="email" [(ngModel)]="client.email" class="form-control"  name="email"  #email="ngModel" readonly
+                                    [ngClass]="{ 'is-invalid': !client.email && email.touched , 'is-valid':  client.email  && email.touched }"  required>
+                                </div>
+                                <div class="col-md-6 mb-0 form-group">
+                                    <label>{{'phone' | translate}}</label>
+                                    <input type="text" [(ngModel)]="client.phone" class="form-control"  name="phone" #phone="ngModel"  minlength="10"
+                                    [ngClass]="{ 'is-invalid': (!client.phone  && phone.touched) || phone.invalid , 'is-valid':  client.phone  && phone.touched && phone.valid }"  required>
+                                </div>
+
+                                <div class="col-12 invoiceInfo p-2">
+                                    <div class=" row ">
+                                        <div class="col-12 col-md-6 mb-0 form-group">
+                                            <label >CNP</label>
+                                            <input type="text" [(ngModel)]="client.cnp" class="form-control"  name="cnp" #cnp="ngModel"  minlength="13"
+                                            [ngClass]="{ 'is-invalid': (!client.cnp  && cnp.touched) || (cnp.invalid && cnp.touched) , 'is-valid':  client.cnp  && cnp.touched && cnp.valid }"  required>
+                                        </div>
+                                        <div class="col-12 col-md-6 pt-3 form-group text-left">
+                                            <div class="form-group custom-control-inline mb-1 mb-xl-0">
+                                                <ui-switch name="invoicedToOther" [(ngModel)]="client.invoicedToOther"></ui-switch>
+                                                <label for="switchery" class="pt-1 pl-1"> Factura se emite pe alt nume</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row p-1 pb-2 mb-2 bg-light-warning bg-lighten-4" *ngIf="client.invoicedToOther">
+                                        <div  class="col-12 col-md-6 mb-0 form-group">
+                                            <label>Prenume (factura) </label>
+                                            <input type="text" [(ngModel)]="client.invoicedFirstName" class="form-control"  name="invoicedFirstName" #invoicedFirstName="ngModel"
+                                            [ngClass]="{ 'is-invalid': (!client.invoicedFirstName  && invoicedFirstName.touched) || (invoicedFirstName.invalid && invoicedFirstName.touched) , 'is-valid':  client.invoicedFirstName  && invoicedFirstName.touched && invoicedFirstName.valid }"  required>
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-0 form-group">
+                                            <label>Nume (factura)</label>
+                                            <input type="text" [(ngModel)]="client.invoicedLastName" class="form-control"  name="invoicedLastName" #invoicedLastName="ngModel"
+                                            [ngClass]="{ 'is-invalid': (!client.invoicedLastName  && invoicedLastName.touched) || (invoicedLastName.invalid && invoicedLastName.touched) , 'is-valid':  client.invoicedLastName  && invoicedLastName.touched && invoicedLastName.valid }"  required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12 col-md-6">
+                                            <label class="form-control-label">{{'county' | translate}}</label>
+                                            <ng-select class="w100" [items]="addressInfo.COUNTIES" required name="client.county" #county="ngModel" bindLabel="name" bindValue="name" placeholder="{{'choose' | translate}}" [(ngModel)]="client.county" [ngClass]="{ 'is-invalid': !county.valid && (county.dirty || county.touched),'is-valid': county.valid && county.touched }"  (change)="client.city = ''">
+                                            </ng-select>
+                                        </div>
+
+                                        <div class="form-group col-12 col-md-6">
+                                            <label class="form-control-label" >{{'city' | translate}}</label>
+                                            <ng-select class="w100" [addTag]="true" addTagText="Adauga " [items]="addressInfo.CITIES[client.county]" required name="client.city" #city="ngModel" bindLabel="name" bindValue="name" placeholder="{{'choose' | translate}}" [(ngModel)]="client.city" [ngClass]="{ 'is-invalid': !city.valid && (city.dirty || city.touched),'is-valid': city.valid && city.touched }" >
+                                            </ng-select>
+                                        </div>
+
+                                        <div class="col-12 form-group">
+                                            <label>Addresa</label>
+                                            <textarea required class="form-control" [(ngModel)]="client.address" name="address"  rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-              </div>
+                                <!-- <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-lg-6 text-center">
+                                                <button class="btn btn-outline-success mb-2 mb-lg-0" type="submit" [disabled]="!editForm.form.valid"><i class="fa fa-check mr-2"></i>
+                                                    {{ 'account.submit' | translate }}</button>
+                                            </div>
+                                            <div class="col-lg-6 text-center">
+                                                <button type="button" class="btn btn-outline-secondary" (click)="restoreForm()">
+                                                    <i class="fa fa-times mr-2"></i>{{ 'cancel' | translate }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+
+
+                            </div>
+
+                            <!-- signature -->
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <label class="mt-1 mr-4">Semnatura</label>
+                                    <p>
+                                        Semnati in partatul alaturat.
+                                        Daca completati formularul de pe un calculator, puteti folosi mousul pentru a semna.<br>
+                                        Avem nevoie de semnatura dumneavoastra pentru generarea automata a contractului.
+                                    </p>
+                                    <p class="font-small-2">
+                                        *Avem nevoie de semnatura dumneavoastra pentru generarea automata a contractului.
+                                    </p>
+                                </div>
+                                <div class="col-md-8 d-flex justify-content-center align-content-center">
+                                    <signature-pad #signature [options]="signaturePadOptions"  (drawEnd)="drawComplete()"></signature-pad>
+                                    <div class="d-flex align-items-center justify-content-start ml-4">
+                                        <button *ngIf="client?.signature" class="btn btn-sm btn-outline-danger mb-2" (click)="clearSignature()"><i class="fa fa-times mr-2"></i>Sterge </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- signature -->
+
+                            <hr>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-3 text-center">
+                                    <button class="btn btn-outline-success" type="submit" [disabled]="!candidForm.form.valid"><i class="fa fa-check mr-2"></i>
+                                        {{ 'Register' | translate }}</button>
+                                </div>
+                                <div class="col-lg-3 text-center">
+                                    <button type="button" class="btn btn-outline-secondary" (click)="cancelRegister()">
+                                        <i class="fa fa-times mr-2"></i>
+                                        {{ 'cancel' | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
@@ -96,3 +199,6 @@
   </div>
 </section>
 <!--Registration Page Ends-->
+
+
+<ngx-spinner type="ball-newton-cradle"></ngx-spinner>

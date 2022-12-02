@@ -8,6 +8,7 @@ import { LISTITEMS } from '../data/template-search';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../_models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: "app-navbar",
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   layoutSub: Subscription;
   configSub: Subscription;
   currentUser: User;
+  @ViewChild('qrcode',{ static: true}) qrcode: ElementRef;
 
   @ViewChild('search') searchElement: ElementRef;
   @ViewChildren('searchResults') searchResults: QueryList<any>;
@@ -51,22 +53,22 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     public translate: TranslateService,
     private layoutService: LayoutService,
     private router: Router,
+    private modalService: NgbModal,
     private configService: ConfigService, private cdr: ChangeDetectorRef) {
+        const browserLang: string = translate.getBrowserLang();
+        translate.use(browserLang.match(/ro/) ? browserLang : "ro");
+        this.config = this.configService.templateConf;
+        this.innerWidth = window.innerWidth;
 
-    const browserLang: string = translate.getBrowserLang();
-    translate.use(browserLang.match(/ro/) ? browserLang : "ro");
-    this.config = this.configService.templateConf;
-    this.innerWidth = window.innerWidth;
+        this.layoutSub = layoutService.toggleSidebar$.subscribe(
+        isShow => {
+            this.hideSidebar = !isShow;
+        });
 
-    this.layoutSub = layoutService.toggleSidebar$.subscribe(
-      isShow => {
-        this.hideSidebar = !isShow;
-    });
-
-    this.authService.currentUser.subscribe( user => {
-        this.currentUser = user;
-    });
-    this.currentUser = this.authService.currentUserValue;
+        this.authService.currentUser.subscribe( user => {
+            this.currentUser = user;
+        });
+        this.currentUser = this.authService.currentUserValue;
 
   }
 
@@ -80,6 +82,10 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isSmallScreen = false;
     }
   }
+
+    showQrCode(){
+        const modalRef = this.modalService.open(this.qrcode,{ centered: true});
+    }
 
   ngAfterViewInit() {
 

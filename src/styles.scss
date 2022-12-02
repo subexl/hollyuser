@@ -48,3 +48,14 @@ app-candidates-list .ngx-datatable .datatable-header datatable-header-cell{
 .swal2-styled.swal2-confirm:focus {
     box-shadow: 0 0 0 3px rgb(247 126 23 / 27%) !important;
 }
+signature-pad{
+    background: transparent !important;
+    box-shadow: 0 0 -2px 6px;
+}
+
+
+.signature-pad-canvas {
+    background: rgb(255, 251, 246) !important;
+    border: solid 1px #d3ebff!important;
+    box-shadow: 0 0 15px -8px;
+}
