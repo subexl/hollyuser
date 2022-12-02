@@ -1,7 +1,10 @@
 {
+	"FAILED": "",
 	"Login": "Login",
 	"Login failed": "Autentificare nereușită",
 	"Login welcome": "Üdvözöljük újra, kérjük, jelentkezzen be fiókjába",
+	"PAID": "",
+	"PENDING": "",
 	"Register": "Regisztráció",
 	"Remember me": "Emlékezz rám",
 	"account.allowedTypes": "Sunt acceptate fisiere JPG, PNG sau GIF",

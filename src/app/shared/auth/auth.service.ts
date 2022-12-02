@@ -69,16 +69,10 @@ export class AuthService {
           this.http.get<any>(environment.apiBaseUrl + 'loadDBData').subscribe(data => {
             const roles = {};
             const locations = {};
-            const cities = {};
-            const counties = {};
             Object.keys(data.roles).map((key) => roles[data.roles[key].id] = data.roles[key]);
             Object.keys(data.locations).map((key) => locations[data.locations[key].id] = data.locations[key]);
-            Object.keys(data.cities).map((key) => cities[data.cities[key].id] = data.cities[key]);
-            Object.keys(data.counties).map((key) => counties[data.counties[key].id] = data.counties[key]);
 
             const dbData = {
-                cities,
-                counties,
                 roles,
                 locations,
                 CandidateStatusesList: data.CandidateStatusesList,
@@ -96,7 +90,10 @@ export class AuthService {
             {
                 path: '/dash', title: 'Dashboard', icon: 'ft-home', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
             },{
-                path: '/account', title: 'Account', icon: 'ft-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+                path: '/account', title: 'Contul meu', icon: 'ft-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+            },
+            {
+                path: '/orders', title: 'Istoric comenzi', icon: 'ft-list', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
             }
         ];
 

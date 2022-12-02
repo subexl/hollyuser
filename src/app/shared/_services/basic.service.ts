@@ -31,8 +31,15 @@ export class BasicService {
         return this.http.get<CubeOrder[]>(environment.apiBaseUrl + `clients/orders/${id}`);
     }
 
-    // deleteUser(id: number): Observable<any> {
-    //     return this.http.delete<any>(environment.apiBaseUrl + `users/${id}`);
-    // }
+    getOrder(id:number): Observable<CubeOrder> {
+        return this.http.get<CubeOrder>(environment.apiBaseUrl + `clients/order/${id}`);
+    }
+
+    loadPDF(path: string): Observable<any> {
+        return this.http.get(environment.apiBaseUrl + path, {
+          responseType : 'blob'
+        });
+    }
+
 
 }

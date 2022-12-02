@@ -1,7 +1,10 @@
 {
+	"FAILED": "plată eșuată ",
 	"Login": "Login",
 	"Login failed": "Autentificare nereușită",
 	"Login welcome": "Bine ați revenit, vă rugăm să vă conectați la contul dvs",
+	"PAID": "plată efectuată ",
+	"PENDING": "plată în procesare",
 	"Register": "Înregistrați-vă",
 	"Remember me": "Salvează datele",
 	"account.allowedTypes": "Sunt acceptate fisiere JPG, PNG sau GIF",

@@ -1,0 +1,52 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { AuthService } from 'app/shared/auth/auth.service';
+import { CubeOrder, Invoice, User } from 'app/shared/_models';
+import { BasicService } from 'app/shared/_services';
+
+@Component({
+  selector: 'app-cube-orders',
+  templateUrl: './cube-orders.component.html',
+  styleUrls: ['./cube-orders.component.scss']
+})
+export class CubeOrdersComponent implements OnInit {
+
+    @ViewChild(DatatableComponent) table: DatatableComponent;
+    orders: CubeOrder[] = [];
+    sort = [{ prop: 'createdAt', dir: 'desc' }];
+    currentUser: User;
+    loadingIndicator = true;
+
+    constructor(
+        private basicService: BasicService,
+        private authService: AuthService,
+    ) {
+        this.authService.currentUser.subscribe((user) => {
+            this.currentUser = user;
+        });
+        this.currentUser = this.authService.currentUserValue;
+     }
+
+    ngOnInit(): void {
+        this.loadOrders();
+    }
+
+    loadOrders(){
+        this.basicService.getOrders(this.currentUser.id).subscribe( orders => {
+            this.orders = orders;
+            this.loadingIndicator = false;
+        }, err => {
+            this.loadingIndicator = false;
+        });
+    }
+
+    openInvoice(invoice: Invoice){
+        this.basicService.loadPDF(`clients/invoice/${invoice.id}`).subscribe(
+            (response) => {
+                    const  blob = new Blob([response], {type: 'application/pdf'});
+                    const blobUrl = URL.createObjectURL(blob);
+                    window.open(blobUrl,'_blank','width: 800');
+        });
+    }
+
+}

@@ -13,4 +13,9 @@ export const Full_ROUTES: Routes = [
         loadChildren: () =>
             import('../../account/account.module').then((m) => m.AccountModule),
     },
+    {
+        path: 'orders',
+        loadChildren: () =>
+            import('../../cube-orders/cube-orders.module').then((m) => m.CubeOrdersModule),
+    },
 ];

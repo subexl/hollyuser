@@ -41,3 +41,10 @@ app-candidates-list .ngx-datatable .datatable-header datatable-header-cell{
     width: 100% !important;
     height: auto !important;
 }
+
+.swal2-styled.swal2-confirm {
+    background-color: #F77E17 !important;
+}
+.swal2-styled.swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgb(247 126 23 / 27%) !important;
+}

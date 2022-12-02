@@ -35,6 +35,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { QRCodeModule } from 'angularx-qrcode';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { QRCodeModule } from 'angularx-qrcode';
         TranslateModule,
         UiSwitchModule,
         NgxSpinnerModule,
-        QRCodeModule
+        QRCodeModule,
+        NgxDatatableModule
     ],
     imports: [
         RouterModule,
@@ -76,7 +78,8 @@ import { QRCodeModule } from 'angularx-qrcode';
         AutocompleteModule,
         PipeModule,
         NgxSpinnerModule,
-        QRCodeModule
+        QRCodeModule,
+        NgxDatatableModule
     ],
     declarations: [
         FooterComponent,

@@ -34,7 +34,7 @@ const routes: Routes = [
     AccountComponent,
     EditComponent,
     AvatarUploadComponent,
-    EditInvoiceInfoComponent
+    EditInvoiceInfoComponent,
   ],
   imports: [
     SharedModule,

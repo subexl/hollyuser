@@ -49,6 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
     SharedModule,
     NgbModule,
     NgxSpinnerModule,
+    NgxDatatableModule,
     UiSwitchModule,
     TranslateModule.forRoot({
         loader: {
