@@ -14,3 +14,5 @@ export enum CandidateStatuses {
 	Ready = 5,
 	Lost = 6
 }
+
+export const CUBE_VALIDITY_DAYS = 30;

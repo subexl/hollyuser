@@ -13,6 +13,7 @@ export interface User {
     locationId: number;
     location?: Location;
     lang: string;
+    note?: string;
     source: string;
     address: string;
     county: string;
@@ -27,7 +28,7 @@ export interface User {
     signature: string;
     token?: string;
     password?: string;
-    note?: string;
+    cubesExpireDate: Date;
 }
 
 

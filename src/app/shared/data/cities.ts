@@ -1,5 +1,15 @@
 export const COUNTIES = [
     {
+        "id": "40",
+        "code": "MS",
+        "name": "Mureș"
+    },
+    {
+        "id": "3",
+        "code": "HR",
+        "name": "Harghita"
+    },
+    {
       "id": "21",
       "code": "AB",
       "name": "Alba"

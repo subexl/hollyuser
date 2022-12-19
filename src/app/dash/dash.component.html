@@ -26,9 +26,12 @@
                             <i [routerLink]="['/dash/buycube']" class="ft-plus-circle success font-large-2 float-right pointer" ngbTooltip="{{ 'dash.buyCube' | translate }}" ></i>
                         </div>
                     </div>
-                    <ngb-progressbar
+                    <div>
+                        <span class="font-small-2">{{ 'dash.cubeExpireOn' | translate }} {{currentUser.cubesExpireDate | date: 'dd/MM'}}</span>
+                    </div>
+                    <ngb-progressbar *ngIf="currentUser.remainingCubes"
                         type="dark"
-                        [value]="percent"
+                        [value]="getRemainingPercent()"
                         class="progress-bar-sm"
                         height="4px"
                     ></ngb-progressbar>
@@ -42,3 +45,4 @@
     <i class="fa fa-cube mr-2" aria-hidden="true"></i>
     {{ 'dash.buyCube' | translate }}
 </button> -->
+

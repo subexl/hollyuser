@@ -5,6 +5,8 @@ import { CubeOrder, User } from 'app/shared/_models';
 import { BasicService } from 'app/shared/_services';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import Swal from 'sweetalert2';
+import * as moment from 'moment';
+import { CUBE_VALIDITY_DAYS } from 'app/globals';
 
 @Component({
   selector: 'app-dash',
@@ -15,7 +17,6 @@ export class DashComponent implements OnInit {
 
     qrCollapsed = true;
     currentUser: User;
-    percent = 0;
     orders: CubeOrder[] = [];
     isMobile = false;
     isTablet = false;
@@ -65,6 +66,14 @@ export class DashComponent implements OnInit {
         this.basicService.getOrders(this.currentUser.id).subscribe( orders => {
             this.orders = orders;
         });
+    }
+
+    getRemainingPercent(){
+        const expireDate = moment(this.currentUser.cubesExpireDate);
+        const today = moment();
+
+        const remaining = expireDate.diff(today,'days');
+        return remaining * 100 / CUBE_VALIDITY_DAYS;
     }
 
 }
