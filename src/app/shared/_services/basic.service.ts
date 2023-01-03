@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import {Observable } from 'rxjs';
-import { Location, Cube, CubeOrder, NetopiaRequest } from '../_models';
+import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess } from '../_models';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,17 @@ export class BasicService {
           responseType : 'blob'
         });
     }
+
+
+    // TEMP usage only for testing
+    scanForEntry(gateId:number, entryCode: string): Observable<GateAccess> {
+        return this.http.get<GateAccess>(environment.apiBaseUrl + `public/gateInAccess/${gateId}/${entryCode}`);
+    }
+
+    scanForExit(gateId:number, entryCode: string): Observable<GateAccess> {
+        return this.http.get<GateAccess>(environment.apiBaseUrl + `public/gateOutAccess/${gateId}/${entryCode}`);
+    }
+    // TEMP usage only for testing
 
 
 }

@@ -16,3 +16,4 @@ export enum CandidateStatuses {
 }
 
 export const CUBE_VALIDITY_DAYS = 30;
+export const DEFAULT_GATE = 1;

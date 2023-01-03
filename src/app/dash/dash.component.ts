@@ -6,7 +6,8 @@ import { BasicService } from 'app/shared/_services';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
-import { CUBE_VALIDITY_DAYS } from 'app/globals';
+import { CUBE_VALIDITY_DAYS, DEFAULT_GATE } from 'app/globals';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dash',
@@ -22,6 +23,7 @@ export class DashComponent implements OnInit {
     isTablet = false;
 
     constructor(
+        public toastr: ToastrService,
         private route: ActivatedRoute,
         private authService: AuthService,
         private device: DeviceDetectorService,
@@ -74,6 +76,34 @@ export class DashComponent implements OnInit {
 
         const remaining = expireDate.diff(today,'days');
         return remaining * 100 / CUBE_VALIDITY_DAYS;
+    }
+
+
+    /**
+     * simulate scanning the qrcode for ENTRY at the gate
+     */
+    scanForEntry(){
+        this.basicService.scanForEntry(DEFAULT_GATE,this.currentUser.entryCode).subscribe( scan =>{
+            if(scan.access){
+                this.toastr.success('Scanare intrare cu succes!');
+            } else {
+                this.toastr.error(scan.error, 'Scanare respinsa');
+            }
+        })
+    }
+
+
+     /**
+     * simulate scanning the qrcode for EXIT at the gate
+     */
+    scanForExit(){
+        this.basicService.scanForExit(DEFAULT_GATE,this.currentUser.entryCode).subscribe( scan =>{
+            if(scan.access){
+                this.toastr.success('Scanare iesire cu succes!');
+            } else {
+                this.toastr.error(scan.error, 'Scanare respinsa');
+            }
+        })
     }
 
 }

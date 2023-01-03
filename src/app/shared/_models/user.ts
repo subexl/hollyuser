@@ -24,7 +24,10 @@ export interface User {
     invoicedFirstName: string;
     invoicedLastName: string;
     invoicedToOther: boolean;
+    invoicedToCompany: boolean;
+    companyJ: string;
     qrcode: string;
+    entryCode: string;
     signature: string;
     token?: string;
     password?: string;
@@ -40,8 +43,8 @@ export class User implements User{
             }
         }
 
-        this.invoicedToOther = false;
-        this.source = 'online';
+        this.invoicedToOther = this.invoicedToOther || false;
+        this.source = this.source || 'online';
     }
 
     createFromCandidate(candidate: Candidate){
@@ -63,6 +66,6 @@ export class User implements User{
     }
 
     getQrCodeData(){
-        return this.id.toString();
+        return this.entryCode.toString();
     }
 }

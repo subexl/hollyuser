@@ -14,4 +14,5 @@ export interface Candidate {
     lang: string;
     scheduledDate: Date;
     note: string;
+    entryCode:string;
 }

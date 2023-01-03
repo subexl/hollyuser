@@ -1,29 +1,45 @@
 <div class="card p-lg-2">
     <form autocomplete="off" class="needs-validation" (ngSubmit)="onFormSubmit()" #editForm="ngForm">
         <div class="row mb-2">
-            <div class="col form-group text-left">
+            <div class="col-12 form-group text-left">
                 <div class="form-group custom-control-inline mb-1 mb-xl-0">
                     <ui-switch name="invoicedToOther" [(ngModel)]="client.invoicedToOther"></ui-switch>
                     <label for="switchery" class="pt-1 pl-1"> Factura se emite pe alt nume</label>
+                </div>
+            </div>
+            <div *ngIf="client.invoicedToOther" class="col-12 form-group text-left">
+                <div class="form-group custom-control-inline mb-1 mb-xl-0">
+                    <ui-switch name="invoicedToCompany" [(ngModel)]="client.invoicedToCompany"></ui-switch>
+                    <label for="switchery" class="pt-1 pl-1"> Factura se emite pe persoană juridică</label>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-6">
                 <div *ngIf="client.invoicedToOther" class="col-12 mb-2 form-group">
-                    <label>Prenume </label>
+                    <label *ngIf="!client.invoicedToCompany">Prenume </label>
+                    <label *ngIf="client.invoicedToCompany">Denumire </label>
                     <input type="text" [(ngModel)]="client.invoicedFirstName" class="form-control"  name="invoicedFirstName" #invoicedFirstName="ngModel"
                     [ngClass]="{ 'is-invalid': (!client.invoicedFirstName  && invoicedFirstName.touched) || (invoicedFirstName.invalid && invoicedFirstName.touched) , 'is-valid':  client.invoicedFirstName  && invoicedFirstName.touched && invoicedFirstName.valid }"  required>
                 </div>
-                <div *ngIf="client.invoicedToOther" class="col-12 mb-2 form-group">
+
+                <div *ngIf="client.invoicedToOther && !client.invoicedToCompany" class="col-12 mb-2 form-group">
                     <label>Nume</label>
                     <input type="text" [(ngModel)]="client.invoicedLastName" class="form-control"  name="invoicedLastName" #invoicedLastName="ngModel"
                     [ngClass]="{ 'is-invalid': (!client.invoicedLastName  && invoicedLastName.touched) || (invoicedLastName.invalid && invoicedLastName.touched) , 'is-valid':  client.invoicedLastName  && invoicedLastName.touched && invoicedLastName.valid }"  required>
                 </div>
+
                 <div class="col-12 mb-2 form-group">
-                    <label >CNP</label>
-                    <input type="text" [(ngModel)]="client.cnp" class="form-control"  name="cnp" #cnp="ngModel"  minlength="13"
+                    <label *ngIf="!client.invoicedToCompany">CNP </label>
+                    <label *ngIf="client.invoicedToCompany">CUI </label>
+                    <input type="text" [(ngModel)]="client.cnp" class="form-control"  name="cnp" #cnp="ngModel"  minlength="client.invoicedToCompany ? 8 : 13"
                     [ngClass]="{ 'is-invalid': (!client.cnp  && cnp.touched) || (cnp.invalid && cnp.touched) , 'is-valid':  client.cnp  && cnp.touched && cnp.valid }"  required>
+                </div>
+
+                <div *ngIf="client.invoicedToOther && client.invoicedToCompany" class="col-12 mb-2 form-group">
+                    <label>Nr. Reg. Com.</label>
+                    <input type="text" [(ngModel)]="client.companyJ" class="form-control"  name="companyJ" #companyJ="ngModel"
+                    [ngClass]="{ 'is-invalid': (!client.companyJ  && companyJ.touched) || (companyJ.invalid && companyJ.touched) , 'is-valid':  client.companyJ  && companyJ.touched && companyJ.valid }"  required>
                 </div>
             </div>
         </div>
