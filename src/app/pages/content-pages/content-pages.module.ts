@@ -15,6 +15,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { RegisterSelectComponent } from './register-select/register-select.component';
 import { SignupSuccessComponent } from './signup/signup-success/signup-success.component';
 import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
+import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
         RegisterPageComponent,
         SignupComponent,
         RegisterSelectComponent,
-        SignupSuccessComponent
+        SignupSuccessComponent,
+        ForgotPasswordPageComponent,
+        ResetPasswordComponent
     ]
 })
 export class ContentPagesModule { }

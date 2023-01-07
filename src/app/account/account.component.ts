@@ -9,6 +9,7 @@ import { AuthService } from 'app/shared/auth/auth.service';
 import { MustMatch } from 'app/shared/directives/must-match.validator';
 import { User } from 'app/shared/_models';
 import { AvatarUploadComponent } from './edit/avatar-upload/avatar-upload.component';
+import { BasicService } from 'app/shared/_services';
 
 @Component({
     selector: 'app-account',
@@ -30,6 +31,7 @@ export class AccountComponent implements OnInit {
       });
 
     constructor(private authService: AuthService,
+        private bService: BasicService,
         private translate: TranslateService,
         public toastr: ToastrService,
         private modalService: NgbModal,
@@ -53,6 +55,16 @@ export class AccountComponent implements OnInit {
 
     setActiveTab(tab) {
         this.activeTab = tab;
+    }
+
+    // open PDF in a new tab
+    openContract(){
+        this.bService.loadPDF(`clients/contract/${this.client.id}`).subscribe(
+            (response) => {
+                    const  blob = new Blob([response], {type: 'application/pdf'});
+                    const blobUrl = URL.createObjectURL(blob);
+                    window.open(blobUrl, '_blank');
+        });
     }
 
     openUploader(){

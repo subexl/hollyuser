@@ -5,15 +5,42 @@
     </div>
 </div>
 
+<a href="javascript:void(0)" (click)="table.rowDetail.expandAllRows()">Expand All</a>
+
 <ngx-datatable #table class="bootstrap"
     [rows]="orders"
     [loadingIndicator]="loadingIndicator"
-    [columnMode]="'force'"
+    [columnMode]="columnMode"
     [headerHeight]="20"
     [footerHeight]="40"
     [rowHeight]="'auto'"
     [limit]="10"
     [sorts]="sort">
+
+
+    <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow>
+        <ng-template let-row="row" let-expanded="true" ngx-datatable-row-detail-template>
+          <div style="padding-left:35px;padding-bottom:10px;">
+            <div class="mt-2"><strong>Acces sambata</strong>
+                <i *ngIf="row.weekendAccess" class="fa fa-check font-medium-4 text-success ml-4"></i>
+                <i *ngIf="!row.weekendAccess" class="fa fa-times font-medium-2 text-danger ml-4"></i>
+            </div>
+
+            <div class="mt-2">
+                <strong>Statut</strong>
+                <span class="badge ml-2" [ngClass]="{'badge-warning': row.status=='PENDING', 'badge-danger': row.status=='FAILED', 'badge-success': row.status=='PAID'}">
+                    {{row.status | translate | uppercase}}
+                </span>
+            </div>
+
+            <div class="mt-2" *ngIf="row.invoice" ><strong>Factura</strong>
+                <button (click)="openInvoice(row.invoice)"  class="btn btn-outline-secondary ml-2 mb-1">
+                    <i class="fa fa-file-pdf-o mr-2"></i> {{row.invoice.prefix}} - {{row.invoice.index}}
+                </button>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-row-detail>
 
 
     <ngx-datatable-column name="ID" [canAutoResize]="false" [width]="30">
@@ -25,7 +52,7 @@
 
     <!-- created date -->
     <ngx-datatable-column
-        [width]="120"
+        [width]="100"
         [sortable]="false"
         [canAutoResize]="false"
         [draggable]="false"
@@ -40,19 +67,19 @@
 
 
     <!-- cubes count -->
-    <ngx-datatable-column name="cubeCount" [width]="100" [flexGrow] ="0.1" cellClass="justify-content-center d-flex align-items-center" headerClass="text-center">
-        <ng-template ngx-datatable-header-template >Numar cuburi</ng-template>
+    <ngx-datatable-column name="cubeCount" [width]="75" [flexGrow] ="1" cellClass="justify-content-center d-flex align-items-center" headerClass="text-center">
+        <ng-template ngx-datatable-header-template >Nr cuburi</ng-template>
     </ngx-datatable-column>
 
      <!-- cubes count -->
-     <ngx-datatable-column name="price" [width]="100" [flexGrow] ="0.1" cellClass="justify-content-center d-flex align-items-center" headerClass="text-center">
+     <ngx-datatable-column name="price" [width]="100" [flexGrow] ="1" cellClass="justify-content-center d-flex align-items-center" headerClass="text-center">
         <ng-template ngx-datatable-header-template >Pret</ng-template>
         <ng-template ngx-datatable-cell-template let-value="value">{{value | number: '1.0'}} RON</ng-template>
     </ngx-datatable-column>
 
     <!-- weekend -->
-    <ngx-datatable-column name="weekendAccess" [width]="100" [flexGrow] ="0.1" cellClass="justify-content-center d-flex align-items-center" headerClass="text-center">
-        <ng-template ngx-datatable-header-template >Access sambata</ng-template>
+    <ngx-datatable-column name="weekendAccess" [width]="120" [flexGrow] ="1" cellClass="justify-content-center align-items-center d-none d-sm-flex" headerClass="text-center">
+        <ng-template ngx-datatable-header-template >   <span class="d-none d-sm-block">Acces sâmbătă</span></ng-template>
         <ng-template ngx-datatable-cell-template let-value="value">
             <i *ngIf="value" class="fa fa-check font-medium-4 text-success"></i>
             <i *ngIf="!value" class="fa fa-times font-medium-2 text-danger"></i>
@@ -60,23 +87,23 @@
     </ngx-datatable-column>
 
     <!-- status -->
-    <ngx-datatable-column name="status" [width]="200" [flexGrow] ="0.5" cellClass="text-center d-flex align-items-center">
+    <ngx-datatable-column name="status" [width]="200" [flexGrow] ="1" cellClass="text-center d-flex align-items-center">
         <ng-template ngx-datatable-header-template let-value="value">
-            <label>Statut</label>
+            <span class="d-none d-sm-block">Statut</span>
         </ng-template>
         <ng-template ngx-datatable-cell-template let-value="value">
-           <span class="badge" [ngClass]="{'badge-warning': value=='PENDING', 'badge-danger': value=='FAILED', 'badge-success': value=='PAID'}">
+           <span class="badge d-none d-sm-block" [ngClass]="{'badge-warning': value=='PENDING', 'badge-danger': value=='FAILED', 'badge-success': value=='PAID'}">
                 {{value | translate | uppercase}}
             </span>
         </ng-template>
     </ngx-datatable-column>
 
 
-    <!-- weekend -->
-    <ngx-datatable-column name="invoice" [width]="100" [flexGrow] ="0.1" cellClass="text-center" headerClass="text-center">
-        <ng-template ngx-datatable-header-template >Factura</ng-template>
+    <!-- invoice -->
+    <ngx-datatable-column name="invoice" [width]="200"  [flexGrow] ="1" cellClass="text-center d-flex align-items-center">
+        <ng-template ngx-datatable-header-template> <span class="d-none d-sm-block te">Factura</span></ng-template>
         <ng-template ngx-datatable-cell-template let-invoice="value">
-            <button (click)="openInvoice(invoice)" *ngIf="invoice" class="btn btn-outline-secondary">
+            <button (click)="openInvoice(invoice)" *ngIf="invoice" class="btn btn-outline-secondary d-none d-sm-block ">
                 <i class="fa fa-file-pdf-o mr-2"></i> {{invoice.prefix}} - {{invoice.index}}
             </button>
         </ng-template>

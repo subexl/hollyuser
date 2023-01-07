@@ -19,7 +19,7 @@
             <li class="nav-item">
               <div class="logo"><a class="logo-text" [routerLink]="['/']" *ngIf="config?.layout.menuPosition === 'Top'">
                   <div class="logo-img"><img class="logo-img" alt="Hollywood logo" [src]="logoUrl"></div><span
-                    class="text">IKM</span>
+                    class="text">IC</span>
                 </a></div>
             </li>
           </ul>
@@ -239,6 +239,7 @@
               href="javascript:;" data-toggle="dropdown" ngbDropdownToggle>
               <div class="user d-md-flex d-none mr-2">
                 <span class="text-right">{{currentUser?.fullName}}</span>
+                <span class="text-right text-muted font-small-3">player</span>
               </div>
               <i  *ngIf="!currentUser.avatar"  class="icon-user font-medium-1 text-warning mr-3"></i>
               <img *ngIf="currentUser.avatar" class="avatar align-middle" src="{{currentUser.avatar}}" alt="avatar" height="35" width="35" />

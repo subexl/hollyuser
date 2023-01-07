@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import {Observable } from 'rxjs';
-import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess } from '../_models';
+import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess, User } from '../_models';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,17 @@ export class BasicService {
         return this.http.get(environment.apiBaseUrl + path, {
           responseType : 'blob'
         });
+    }
+
+    resetPassword(email:string): Observable<any> {
+        return this.http.get<any>(environment.apiBaseUrl + `public/resetPassword/${email}`);
+    }
+
+    getResetPasswordUser(code:string): Observable<User> {
+        return this.http.get<User>(environment.apiBaseUrl + `public/getResetPasswordUser/${code}`);
+    }
+    newPassword( code: string, newPassword:string):Observable<any>{
+        return this.http.patch<any>(`${environment.apiBaseUrl}public/newPassword/${code}`, { newPassword });
     }
 
 

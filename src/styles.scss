@@ -59,3 +59,10 @@ signature-pad{
     border: solid 1px #d3ebff!important;
     box-shadow: 0 0 15px -8px;
 }
+
+// make all DT headers have background on mobile
+@media screen and (max-width: 800px) {
+    .ngx-datatable.bootstrap .datatable-body .datatable-body-row {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+}

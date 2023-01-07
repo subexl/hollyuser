@@ -34,8 +34,18 @@
             <span class="align-middle">{{ 'account.invoiceInfo' | translate }}</span>
           </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'contract'}"
+              (click)="setActiveTab('contract')" id="contract-tab" data-toggle="tab" role="tab"
+              aria-controls="contract" aria-selected="false">
+              <i class="ft-clipboard mr-1 align-middle"></i>
+              <span class="align-middle">{{ 'account.contract' | translate }}</span>
+            </a>
+          </li>
       </ul>
     </div>
+
     <div class="col-md-9">
       <!-- Tab panes -->
       <div class="card">
@@ -119,14 +129,22 @@
               </div>
 
               <!-- Invoice data Tab -->
-              <div class="tab-pane" [ngClass]="{active: activeTab === 'invoice'}" id="invoice" role="tabpanel"
-                aria-labelledby="invoice-tab">
+              <div class="tab-pane" [ngClass]="{active: activeTab === 'invoice'}" id="invoice" role="tabpanel" aria-labelledby="invoice-tab">
                 <div class="row">
                     <div class="col">
                         <app-edit-invoice-info (notify)="onDataUpdated($event)"></app-edit-invoice-info>
                     </div>
                 </div>
               </div>
+
+              <!-- Contract TAB  -->
+              <div class="tab-pane" [ngClass]="{active: activeTab === 'contract'}" id="contract" role="tabpanel" aria-labelledby="contract-tab">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-outline-warning" (click)="openContract()"><i class="fa fa-download mr-2"></i>{{ 'account.downloadContract' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
         </div>

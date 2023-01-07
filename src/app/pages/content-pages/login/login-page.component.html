@@ -6,7 +6,7 @@
         <div class="card-content">
           <div class="card-body auth-img">
             <div class="row m-0">
-              <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center auth-img-bg p-3">
+              <div class="col-lg-6 d-lg-flex justify-content-center align-items-center auth-img-bg p-3">
                 <img src="assets/img/login.png" alt="" class="img-fluid">
               </div>
               <div class="col-lg-6 col-12 px-4 py-3">
@@ -38,6 +38,7 @@
                         <label for="rememberMe"><span class="font-small-2 mb-3 font-weight-normal">{{'Remember me' | translate}}</span></label>
                       </div>
                     </div>
+                    <a [routerLink]="['/pages/forgotpassword']">{{'forgotPassword' | translate}}</a>
                   </div>
                   <div class="d-flex justify-content-between flex-sm-row flex-column">
                       <a  class="btn btn-primary" (click)="onSubmit()"><i class="fa fa-sign-in mr-2"></i>{{'Login' | translate}}</a>

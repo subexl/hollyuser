@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 import { AuthService } from 'app/shared/auth/auth.service';
 import { CubeOrder, Invoice, User } from 'app/shared/_models';
 import { BasicService } from 'app/shared/_services';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-cube-orders',
@@ -12,6 +13,7 @@ import { BasicService } from 'app/shared/_services';
 export class CubeOrdersComponent implements OnInit {
 
     @ViewChild(DatatableComponent) table: DatatableComponent;
+    columnMode = ColumnMode.force;
     orders: CubeOrder[] = [];
     sort = [{ prop: 'createdAt', dir: 'desc' }];
     currentUser: User;
@@ -20,6 +22,7 @@ export class CubeOrdersComponent implements OnInit {
     constructor(
         private basicService: BasicService,
         private authService: AuthService,
+        private device: DeviceDetectorService,
     ) {
         this.authService.currentUser.subscribe((user) => {
             this.currentUser = user;
@@ -28,6 +31,9 @@ export class CubeOrdersComponent implements OnInit {
      }
 
     ngOnInit(): void {
+        if(this.device.isMobile()){
+            this.columnMode = ColumnMode.standard;
+        }
         this.loadOrders();
     }
 
@@ -35,6 +41,11 @@ export class CubeOrdersComponent implements OnInit {
         this.basicService.getOrders(this.currentUser.id).subscribe( orders => {
             this.orders = orders;
             this.loadingIndicator = false;
+            setTimeout(() => {
+                if(this.device.isMobile()){
+                    this.table.rowDetail.expandAllRows();
+                }
+            }, 100);
         }, err => {
             this.loadingIndicator = false;
         });
