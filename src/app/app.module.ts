@@ -29,6 +29,8 @@ import { WINDOW_PROVIDERS } from './shared/_services/window.service';
 import { JwtInterceptor } from "./shared/_helpers/jwt.interceptor";
 import { BrowserModule } from "@angular/platform-browser";
 import { ToastrModule } from "ngx-toastr";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -63,7 +65,13 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     PerfectScrollbarModule,
     NgxDatatableModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     AuthService,

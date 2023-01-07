@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   apiBaseUrl: 'https://api.ikm.ro:3300/',
   sessionTimeout: 28800000,   // 8 hours
   langs: [
