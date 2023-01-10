@@ -39,15 +39,6 @@ export class AuthService {
 
 
                 this.currentUserSubject.next(new User(user));
-
-                // // set session timeout
-                localStorage.setItem(
-                    'sessionTimeout',
-                    (
-                        new Date().getTime() + environment.sessionTimeout
-                    ).toString()
-                );
-
                 // load db data
                 this.loadDBData();
                 return user;
@@ -59,7 +50,6 @@ export class AuthService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        localStorage.removeItem('sessionTimeout');
         this.currentUserSubject.next(null);
     }
 

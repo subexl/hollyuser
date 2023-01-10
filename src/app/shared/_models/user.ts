@@ -21,6 +21,7 @@ export interface User {
     avatar: string;
     remainingCubes: number;
     weekendAccess: boolean;
+    maxDailyHours: number;
     invoicedFirstName: string;
     invoicedLastName: string;
     invoicedToOther: boolean;

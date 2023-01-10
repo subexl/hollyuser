@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AuthService } from 'app/shared/auth/auth.service';
-import { CubeOrder, User } from 'app/shared/_models';
-import { BasicService } from 'app/shared/_services';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
-import { CUBE_VALIDITY_DAYS, DEFAULT_GATE } from 'app/globals';
-import { ToastrService } from 'ngx-toastr';
+
+import { LearningSession, User } from 'app/shared/_models';
+import { BasicService } from 'app/shared/_services';
+import { AuthService } from 'app/shared/auth/auth.service';
+import { CUBE_VALIDITY_DAYS, DEFAULT_GATE, SCHEDULE_MINIMUM_HOURS } from 'app/globals';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewScheduleComponent } from './new-schedule/new-schedule.component';
 
 @Component({
   selector: 'app-dash',
@@ -18,15 +21,16 @@ export class DashComponent implements OnInit {
 
     qrCollapsed = true;
     currentUser: User;
-    orders: CubeOrder[] = [];
     isMobile = false;
     isTablet = false;
+    scheduledSession: LearningSession;
 
     constructor(
         public toastr: ToastrService,
         private route: ActivatedRoute,
         private authService: AuthService,
         private device: DeviceDetectorService,
+        private modalService: NgbModal,
         private basicService: BasicService) {
 
         this.authService.currentUser.subscribe((user) => {
@@ -42,7 +46,7 @@ export class DashComponent implements OnInit {
         this.route.queryParams
         .subscribe((params: Params) => {
             if('orderId' in params ){
-                let order = this.basicService.getOrder(params.orderId).subscribe( order => {
+                this.basicService.getOrder(params.orderId).subscribe( order => {
                     switch(order.status){
                         case 'PAID':
                             Swal.fire('Plata procesata cu succes!','Va multumim! Codul QR este activat!','success')
@@ -65,9 +69,19 @@ export class DashComponent implements OnInit {
 
         this.authService.reloadUser();
 
-        this.basicService.getOrders(this.currentUser.id).subscribe( orders => {
-            this.orders = orders;
-        });
+        this.loadSheduledSession();
+    }
+
+
+    /**
+     * Load the clients scheduled date if exists
+     */
+    loadSheduledSession(){
+            this.basicService.loadSheduledSession(this.currentUser.id).subscribe( session => {
+                this.scheduledSession = session? new LearningSession(session) : null;
+            }, err => {
+                // no scheduled session
+            });
     }
 
     getRemainingPercent(){
@@ -77,6 +91,72 @@ export class DashComponent implements OnInit {
         const remaining = expireDate.diff(today,'days');
         return remaining * 100 / CUBE_VALIDITY_DAYS;
     }
+
+
+    /**
+     * open modal for creating a new schedule
+     */
+    newSchedule(){
+        const modalRef = this.modalService.open(NewScheduleComponent, { size: 'lg',  centered: true });
+        modalRef.componentInstance.currentUser = this.currentUser;
+        modalRef.closed.subscribe((wasAdded)=>{
+            if(true === wasAdded){
+                this.toastr.success(this.basicService.strings['dash.scheduleUpdated'],'', { positionClass: 'toast-bottom-center'})
+                this.loadSheduledSession();
+            }
+        });
+    }
+
+
+    /**
+     * Calculate if shcedule can be modified/cancelled
+     */
+
+    canChangeSchedule():boolean{
+        if (!this.scheduledSession) return true;
+
+        const start = moment(this.scheduledSession.start);
+        const now = moment();
+
+        const diff = start.diff(now,'hours');
+        return diff >= SCHEDULE_MINIMUM_HOURS;
+    }
+
+    /**
+     * Delete scheduled Session
+     */
+    async cancelSchedule(){
+        if (!this.canChangeSchedule()) return;
+
+        Swal.fire({
+            title: this.basicService.strings.areYouSure,
+            text: this.basicService.strings['dash.sessionWillBeLost'],
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: this.basicService.strings.yesDelete,
+            cancelButtonText: this.basicService.strings.back
+          }).then((result) => {
+            if (result.isConfirmed) {
+                this.basicService.deleteSession(+this.scheduledSession.id).subscribe(res => {
+                    if(res.affected){
+                        Swal.fire({
+                            position: 'bottom',
+                            icon: 'info',
+                            title: this.basicService.strings['dash.scheduleDeleted'],
+                            showConfirmButton: false,
+                            toast:true,
+                            timer: 2500
+                        })
+                        this.loadSheduledSession();
+                    }
+                })
+            }
+          })
+    }
+
+
+
 
 
     /**

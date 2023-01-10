@@ -14,10 +14,8 @@ export class AuthGuard implements CanActivate {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     console.log('AuthGuard..', currentUser);
-     // check sessionTiemout
-    const timeout = localStorage.getItem('sessionTimeout');
 
-    if ( !(timeout <  (new Date().getTime()).toString()) && currentUser ) {
+    if ( currentUser ) {
       // logged in and session not timed out so return true
         return true;
     }

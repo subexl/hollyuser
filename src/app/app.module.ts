@@ -11,6 +11,10 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 
+import { registerLocaleData } from '@angular/common';
+import localeRo from '@angular/common/locales/ro'
+registerLocaleData(localeRo);
+
 import {
   PerfectScrollbarModule,
   PERFECT_SCROLLBAR_CONFIG,
@@ -31,6 +35,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { ToastrModule } from "ngx-toastr";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from "@danielmoncada/angular-datetime-picker";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -55,6 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgxDatatableModule,
     UiSwitchModule,
     AngularSignaturePadModule,
+    OwlNativeDateTimeModule,
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
@@ -78,6 +84,7 @@ export function createTranslateLoader(http: HttpClient) {
     AuthGuard,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'ro'},
     WINDOW_PROVIDERS
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

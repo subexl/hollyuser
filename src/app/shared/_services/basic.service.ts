@@ -1,15 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'environments/environment';
 import {Observable } from 'rxjs';
-import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess, User } from '../_models';
+import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess, User, LearningSession } from '../_models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasicService {
 
-    constructor(private http: HttpClient) { }
+    public strings: any;
+
+    constructor(private http: HttpClient, private translate: TranslateService) {
+        console.log('BasicService loaded...');
+        this.translate.getTranslation('ro').subscribe( s => {
+            this.strings = s;
+        });
+    }
 
     getAllLocations(): Observable<Location[]> {
         return this.http.get<Location[]>(environment.apiBaseUrl + `locations`);
@@ -51,6 +59,21 @@ export class BasicService {
     newPassword( code: string, newPassword:string):Observable<any>{
         return this.http.patch<any>(`${environment.apiBaseUrl}public/newPassword/${code}`, { newPassword });
     }
+
+
+    loadSheduledSession(clientId:number): Observable<LearningSession> {
+        return this.http.get<LearningSession>(environment.apiBaseUrl + `sessions/scheduledForClient/${clientId}`);
+    }
+
+    deleteSession(id: number): Observable<any> {
+        return this.http.delete<any>(environment.apiBaseUrl + `sessions/${id}`);
+    }
+
+    createSession(session: LearningSession): Observable<LearningSession> {
+        return this.http.post<LearningSession>(environment.apiBaseUrl + `sessions/add`, session);
+    }
+
+
 
 
     // TEMP usage only for testing

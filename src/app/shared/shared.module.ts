@@ -36,6 +36,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -55,12 +56,14 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
         UiSwitchModule,
         NgxSpinnerModule,
         QRCodeModule,
-        NgxDatatableModule
+        NgxDatatableModule,
+        NgSelectModule
     ],
     imports: [
         RouterModule,
         CommonModule,
         NgbModule,
+        NgSelectModule,
         UiSwitchModule,
         TranslateModule.forChild({
             loader: {

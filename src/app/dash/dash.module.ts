@@ -5,6 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { BuyCubeComponent } from './buy-cube/buy-cube.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { NewScheduleComponent } from './new-schedule/new-schedule.component';
+import { FormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 const routes: Routes = [
     {
@@ -27,11 +30,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [DashComponent, BuyCubeComponent],
+    declarations: [DashComponent, BuyCubeComponent, NewScheduleComponent],
     imports: [
         TranslateModule,
         CommonModule,
         SharedModule,
+        FormsModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
         RouterModule.forChild(routes)
     ]
 })
