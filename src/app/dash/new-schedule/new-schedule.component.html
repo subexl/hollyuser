@@ -9,17 +9,17 @@
             <div class="form-row">
 
                 <div class="col-12 mb-2 form-group">
-                    <label>Scheduled date</label>
+                    <label>{{ 'scheduledDay' | translate }}</label>
                     <input [min]="minDay.toDate()" [max]="maxDay.toDate()" [owlDateTimeFilter]="weekendFilter" class="form-control" name="day" [(ngModel)]="day" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"  placeholder="{{ 'selectDay' | translate }}">
                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                 </div>
 
                 <div class="col-12 col-md-6 mb-2 form-group" [hidden] = "!day">
-                    <label>From</label>
+                    <label>{{ 'from' | translate }}</label>
                     <ng-select  [readonly]="!day" (change)="onFromSet($event)" [searchable] = "false" #fromSelect aria-autocomplete="none"  [items]="fromValues" [(ngModel)]="start" required ></ng-select>
                 </div>
                 <div class="col-12 col-md-6 mb-2 form-group" [hidden] = "!day || !start">
-                    <label>Until</label>
+                    <label>{{ 'to' | translate }}</label>
                     <ng-select [readonly]="!start" [searchable] = "false" aria-autocomplete="none" #untilSelect  [items]="untilValues" [(ngModel)]="end" required ></ng-select>
                 </div>
 

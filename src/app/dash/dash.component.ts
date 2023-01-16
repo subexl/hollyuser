@@ -49,13 +49,13 @@ export class DashComponent implements OnInit {
                 this.basicService.getOrder(params.orderId).subscribe( order => {
                     switch(order.status){
                         case 'PAID':
-                            Swal.fire('Plata procesata cu succes!','Va multumim! Codul QR este activat!','success')
+                            Swal.fire('Plată procesată cu succes!','Vă mulțumim! Codul QR este activat!','success')
                         break;
                         case 'PENDING':
-                            Swal.fire('Plata in procesare!','<strong>Va multumim!</strong><br><small>Contul va fi actualizat odata ce plata a fost incasata!</small>','info')
+                            Swal.fire('Plată în procesare!','<strong>Vă mulțumim!</strong><br><small>Contul va fi actualizat odată ce plata a fost încasată!</small>','info')
                         break;
                         case 'FAILED':
-                            Swal.fire('Plata esuata!','<strong>Ne pare rău, dar plata nu afost efectuată cu succes!</strong><br><small>Vă rugăm încercați din nou</small>','error')
+                            Swal.fire('Plată eșuată!','<strong>Ne pare rău, dar plata nu a fost efectuată cu succes!</strong><br><small>Vă rugăm încercați din nou</small>','error')
                         break;
                     }
                 }, err => {
@@ -184,6 +184,21 @@ export class DashComponent implements OnInit {
                 this.toastr.error(scan.error, 'Scanare respinsa');
             }
         })
+    }
+
+
+    /**
+     * return color based on numbe rof cubes
+     */
+
+     getCubeClass(){
+        if(!this.currentUser.remainingCubes){
+            return 'danger';
+        }
+        if(this.currentUser.remainingCubes < 3){
+            return 'warning';
+        }
+        return 'success'
     }
 
 }

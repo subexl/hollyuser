@@ -78,7 +78,7 @@ export class AuthService {
     getUserMenu():RouteInfo[] {
         const routes:RouteInfo[] = [
             {
-                path: '/dash', title: 'Dashboard', icon: 'ft-home', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
+                path: '/dash', title: 'Acasă', icon: 'ft-home', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
             },{
                 path: '/account', title: 'Contul meu', icon: 'ft-user', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
             },

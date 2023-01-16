@@ -17,10 +17,10 @@
                 <div class="card-body">
                     <div class="media">
                         <div class="media-body text-left">
-                            <h3 class="mb-1" [ngClass]="{ success: currentUser.remainingCubes}">
+                            <span class="mb-2">{{ 'dash.remainingCubes' | translate }}</span>
+                            <h3 class="mb-1 font-large-2 ml-2 {{getCubeClass()}}">
                                 {{ currentUser.remainingCubes }}
                             </h3>
-                            <span>{{ 'dash.remainingCubes' | translate }}</span>
                         </div>
                         <div class="media-right align-self-center">
                             <i [routerLink]="['/dash/buycube']" class="ft-plus-circle success font-large-2 float-right pointer" ngbTooltip="{{ 'dash.buyCube' | translate }}" ></i>

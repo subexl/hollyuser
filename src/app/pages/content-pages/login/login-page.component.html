@@ -11,7 +11,7 @@
               </div>
               <div class="col-lg-6 col-12 px-4 py-3">
                 <h4 class="mb-2 card-title">{{'Login' | translate}}</h4>
-                <p>{{'Login welcome' | translate}}</p>
+                <p class="nl2br">{{'Login welcome' | translate}}</p>
                 <ngb-alert [type]="'danger'" class="mb-2" *ngIf="isLoginFailed" (closed)="isLoginFailed = false">
                   <p class="mb-0">{{'Login failed' | translate}}</p>
                 </ngb-alert>

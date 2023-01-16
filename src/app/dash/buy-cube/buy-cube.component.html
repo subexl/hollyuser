@@ -13,7 +13,10 @@
                         <li *ngFor="let cube of cubes" class="list-group-item list-group-item-action flex-column align-items-start mb-2 shadow rounded"
                             (click) = "selectCube(cube)" [ngClass]="{'bg-warning white': selectedCube == cube}">
                             <div class="d-flex w-100 justify-content-between">
-                                <p class="mb-3"><span class="font-large-1">{{cube.cubeCount}} </span>{{'buycube.cubes' | translate}}</p>
+                                <p class="mb-3"><span class="font-large-1">{{cube.cubeCount}} </span>
+                                    <span *ngIf="cube.cubeCount > 1">{{'buycube.cubes' | translate}}</span>
+                                    <span  *ngIf="cube.cubeCount == 1">{{'buycube.cube' | translate}}</span>
+                                </p>
                                 <div>
                                     <span *ngIf="!order.weekendAccess" class="badge bg-light-warning"><strong>{{cube.weekDaysPrice}} </strong>RON</span>
                                     <span *ngIf="order.weekendAccess" class="badge bg-light-warning"><strong>{{cube.weekEndPrice}} </strong>RON</span>

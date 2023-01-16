@@ -17,6 +17,7 @@ import { SignupSuccessComponent } from './signup/signup-success/signup-success.c
 import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 import { ForgotPasswordPageComponent } from './forgot-password/forgot-password-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
         NgxSpinnerModule,
         NgSelectModule,
         AngularSignaturePadModule,
-        SharedModule
+        SharedModule,
+        PipeModule
     ],
     declarations: [
         ErrorPageComponent,

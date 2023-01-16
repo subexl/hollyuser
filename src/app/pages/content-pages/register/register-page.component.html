@@ -13,8 +13,8 @@
                     <h4 class="card-title mb-2">{{'register.user.desc' | translate}}</h4>
                     <!-- candidate verify -->
                     <div [hidden]="candidate">
-                        <p class="font-small-2">Crearea contului este posibil doar daca ati trecut deja de ora de proba!<br>
-                            Va rugam folositi aceeasi adresa de mail cu care v-ati inregistrat la Ziua Portilor Deschise!</p>
+                        <p class="font-small-2">Crearea contului este posibil doar dacă ați trecut deja de ora de probă!<br>
+                            Vă rugăm folosiți aceeași adresă e-mail cu care v-ați înregistrat la Ziua Porților Deschise!</p>
 
                         <form [formGroup]="registerForm">
                             <!-- <div class="form-group">
@@ -31,18 +31,18 @@
                                 <input type="email" autocomplete="off" formControlName="email" class="form-control mb-2" placeholder="Email"
                                 [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.email.invalid, 'is-valid': registerFormSubmitted && !rf.email.invalid }" required>
                                 <div *ngIf="registerFormSubmitted &&  rf.email.errors?.email" class="help-block mt-1 text-danger"> <i
-                                    class="ft-alert-circle align-middle"></i> Adresa email nu e corecta!</div>
+                                    class="ft-alert-circle align-middle"></i> Adresa email nu este corectă!</div>
                             </div>
                             <div class="form-group">
                                 <input type="password" formControlName="password" class="form-control mb-2" placeholder="{{'Parola' | translate}}"
                                 [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.password.invalid, 'is-valid': registerFormSubmitted && !rf.password.invalid }" required>
 
                                 <div *ngIf="registerFormSubmitted && (!rf.password.errors?.required && rf.password.errors?.minlength)"
-                                class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Parola trebuie sa continua minim 4 caractere </div>
+                                class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> Parola trebuie să conțină minim 4 caractere </div>
                             </div>
                             <div class="form-group">
                                 <input type="password" formControlName="confirmPassword" class="form-control mb-2"
-                                placeholder="Confirma Parola"
+                                placeholder="Confirmă Parola"
                                 [ngClass]="{ 'is-invalid': registerFormSubmitted && rf.confirmPassword.invalid, 'is-valid': registerFormSubmitted && !rf.confirmPassword.invalid }" required>
 
                                 <div *ngIf="registerFormSubmitted && (rf.confirmPassword.errors?.mustMatch)"  class="help-block mt-1 text-danger">

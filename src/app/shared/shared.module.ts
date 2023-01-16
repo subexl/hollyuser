@@ -57,7 +57,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         NgxSpinnerModule,
         QRCodeModule,
         NgxDatatableModule,
-        NgSelectModule
+        NgSelectModule,
+        PipeModule
     ],
     imports: [
         RouterModule,
