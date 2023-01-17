@@ -19,8 +19,9 @@ export class NewScheduleComponent implements OnInit {
 
     @Input() currentUser: User;
     dataReady = false;
-    session = new LearningSession();
-    day;
+    @Input() session: LearningSession;
+    day: Date;
+    minStart = moment();
     minDay: Moment;
     maxDay: Moment;
     min: Moment;
@@ -31,6 +32,7 @@ export class NewScheduleComponent implements OnInit {
     fromValues = [];
     untilValues = [];
     @ViewChild('untilSelect', { static: false}) untilSelect: NgSelectComponent;
+    @ViewChild('fromSelect', { static: false}) fromSelect: NgSelectComponent;
 
     /**
      *
@@ -43,30 +45,43 @@ export class NewScheduleComponent implements OnInit {
         private basicServ: BasicService) { }
 
     ngOnInit(): void {
+        // creating a new
+        if(null === this.session){
+            this.session = new LearningSession();
+            // set session basic info
+            this.session.id = 0;
+            this.session.locationId = this.currentUser.locationId;
+            this.session.clientId = this.currentUser.id;
+        } else {
+            // modifying existing, so need to set input values
+            this.day = moment(this.session.start).startOf('day').toDate();
+            this.buildFromValues();
+            this.start = moment(this.session.start).format('HH:mm');
+            this.buildUntilValues();
+            this.end = moment(this.session.end).format('HH:mm');
+        }
+        console.log(this.session);
 
-
-        // set session basic info
-        this.session.id = 0;
-        this.session.locationId = this.currentUser.locationId;
-        this.session.clientId = this.currentUser.id;
 
         // update global variable
         weekendAccess = this.currentUser.weekendAccess;
+
+
+        // set min and max selectable days
         // first let's set the max to users's expirations date
         this.maxDay = moment(this.currentUser.cubesExpireDate).startOf('day');
 
         // calculate minumim moment of start by using hours threshold
-        this.min = moment().startOf('hour').add(SCHEDULE_MINIMUM_HOURS,'hours');
+        this.minStart = moment().startOf('hour').add(SCHEDULE_MINIMUM_HOURS,'hours');
 
         // check if min if within today's closing time, if not, set min to next working day
-        if(this.min.hour() >= SCHEDULE_END_HOUR ){
-           this.min = moment().add(1,'day').startOf('day').add(SCHEDULE_START_HOUR, 'hours');
+        // need to set min date to beggining of the day for the datepicker to work
+        if(this.minStart.hour() >= SCHEDULE_END_HOUR ){
+            this.minDay = moment().add(1,'day').startOf('day');
+        } else {
+            this.minDay = moment().startOf('day');
         }
 
-        // need to set min date to beggining of the day for the datepicker to work
-        this.minDay = moment(this.min).startOf('day');
-
-        this.buildFromValues();
 
     }
 
@@ -76,6 +91,18 @@ export class NewScheduleComponent implements OnInit {
 
 
     buildFromValues(){
+        // start by using start hours
+        this.min = moment(this.day).hours(SCHEDULE_START_HOUR);
+        // check if nem minimum is in past
+        if(this.min.isBefore(this.minStart)){
+            this.min = moment(this.minStart);
+        }
+        console.log(this.min.format());
+
+        // check if min if within today's closing time, if not, set min to next working day
+        if(this.min.hour() >= SCHEDULE_END_HOUR ){
+           this.min = moment().add(1,'day').startOf('day').add(SCHEDULE_START_HOUR, 'hours');
+        }
         // set minimum and maximum values for time inputs
         // if current min is before schedule start adjust it
         if(this.min.hour() < SCHEDULE_START_HOUR){
@@ -98,6 +125,11 @@ export class NewScheduleComponent implements OnInit {
             this.fromValues.push(fromMin.format('HH:mm'));
             fromMin.add(30, 'minutes');
         } while (fromMin.hours() < SCHEDULE_END_HOUR - 1);
+
+        // if start already has a value check if it's valid
+        if(this.start && this.fromSelect && !this.fromValues.includes(this.start)){
+            this.fromSelect.handleClearClick();
+        }
     }
 
 
@@ -129,6 +161,10 @@ export class NewScheduleComponent implements OnInit {
     }
 
 
+    onDaySelected(){
+        this.buildFromValues();
+        this.buildUntilValues();
+    }
 
     onFormSubmit(){
         let [h, m] = this.start.split(':');
@@ -138,11 +174,20 @@ export class NewScheduleComponent implements OnInit {
         this.session.end = moment(this.day).hours(eh).minutes(em).toDate();
         console.log(this.session);
 
-        this.basicServ.createSession(this.session).subscribe(session => {
-            this.activeModal.close(true);
-        }, err => {
-            console.log(err);
-        })
+        if(this.session.id !== 0){
+            this.basicServ.updateSession(this.session).subscribe(session => {
+                this.activeModal.close(true);
+            }, err => {
+                console.log(err);
+            })
+        } else {
+            this.basicServ.createSession(this.session).subscribe(session => {
+                this.activeModal.close(true);
+            }, err => {
+                console.log(err);
+            })
+        }
+
     }
 
 

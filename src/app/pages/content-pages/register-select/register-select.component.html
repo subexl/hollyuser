@@ -3,7 +3,10 @@
     <div class="row auth-height full-height-vh m-0">
       <div class="col-12 d-flex align-items-center justify-content-center">
         <div id="selector-wrap">
-            <h5 class="text-center w-100">{{'register-select' | translate}}</h5>
+            <div class="d-flex justify-content-center">
+                <img src="assets/img/login.png" alt="" class="img-fluid">
+            </div>
+            <!-- <h5 class="text-center w-100">{{'register-select' | translate}}</h5> -->
             <div class="row justify-content-between">
                 <div class="col-lg-6">
                     <div class="card pb-3 pt-3" [routerLink]="['/pages/signup']" >
@@ -42,10 +45,11 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <a class="text-secondary font-small-2 mt-2" [routerLink]="['/pages/login']">{{'back' | translate}}</a>
+                <a class="text-secondary font-small-3 mt-3" [routerLink]="['/pages/login']">{{'back' | translate}}</a>
             </div>
         </div>
         </div>
     </div>
   </section>
+
   <!--Registration Page Ends-->

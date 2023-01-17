@@ -55,6 +55,7 @@ export class User implements User{
         this.phone = candidate.phone;
         this.locationId = candidate.locationId;
         this.lang = candidate.lang;
+        this.entryCode = candidate.entryCode;
         this.note = candidate.note || '';
         this.signature = '';
         this.avatar = '';

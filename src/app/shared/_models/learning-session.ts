@@ -10,6 +10,7 @@ export interface LearningSession extends CalendarEvent{
 
 export class LearningSession implements LearningSession{
     constructor(session?: LearningSession){
+        this.id = 0;
         if(null !== session){
             for(const key in session){
                 this[key] = session[key];

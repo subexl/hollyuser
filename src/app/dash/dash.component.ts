@@ -99,6 +99,7 @@ export class DashComponent implements OnInit {
     newSchedule(){
         const modalRef = this.modalService.open(NewScheduleComponent, { size: 'lg',  centered: true });
         modalRef.componentInstance.currentUser = this.currentUser;
+        modalRef.componentInstance.session = this.scheduledSession;
         modalRef.closed.subscribe((wasAdded)=>{
             if(true === wasAdded){
                 this.toastr.success(this.basicService.strings['dash.scheduleUpdated'],'', { positionClass: 'toast-bottom-center'})

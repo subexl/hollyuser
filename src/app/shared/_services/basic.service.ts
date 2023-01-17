@@ -73,6 +73,10 @@ export class BasicService {
         return this.http.post<LearningSession>(environment.apiBaseUrl + `sessions/add`, session);
     }
 
+    updateSession(session: LearningSession): Observable<LearningSession> {
+        return this.http.patch<LearningSession>(environment.apiBaseUrl + `sessions/update`, session);
+    }
+
 
 
 

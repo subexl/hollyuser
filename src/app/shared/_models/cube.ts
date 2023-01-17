@@ -4,6 +4,7 @@ import { User } from "./user";
 export interface Cube{
     id: number;
 	cubeCount: number;
+	cubeCountWeekend: number;
 	maxDailyHours: number;
 	weekDaysPrice: number;
 	weekEndPrice: number;
@@ -31,7 +32,7 @@ export class CubeOrder implements CubeOrder {
     selectCube(cube: Cube){
         this.cubeId = cube.id;
         this.price = this.weekendAccess ? cube.weekEndPrice : cube.weekDaysPrice;
-        this.cubeCount = cube.cubeCount;
+        this.cubeCount = this.weekendAccess ? cube.cubeCountWeekend :  cube.cubeCount;
     }
 }
 

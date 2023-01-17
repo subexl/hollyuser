@@ -44,7 +44,7 @@
         <div class="card bg-light-warning">
             <div class="card-content">
                 <div class="card-body">
-                    <div class="media">
+                    <div class="media p-2">
                         <div class="media-body text-left">
                             <h4 class="mb-1">
                                 {{scheduledSession.start | date: 'EEEE, dd MMM' :'' : 'ro-RO'}}
@@ -63,7 +63,7 @@
                             </button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-block btn-outline-secondary" [disabled] = "!canChangeSchedule()">
+                            <button (click) = "newSchedule()"  class="btn btn-block btn-outline-secondary" [disabled] = "!canChangeSchedule()">
                                 <i class="fa fa-pencil mr-2"></i> {{ 'dash.changeSchedule' | translate }}
                             </button>
                         </div>
