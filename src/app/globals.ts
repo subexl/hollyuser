@@ -17,6 +17,10 @@ export enum CandidateStatuses {
 
 export const CUBE_VALIDITY_DAYS = 30;
 export const DEFAULT_GATE = 1;
+
+//  minimum distance to start from the moment of creating the schedule
 export const SCHEDULE_MINIMUM_HOURS = 8;
+
+// working hours interval
 export const SCHEDULE_START_HOUR = 9;
 export const SCHEDULE_END_HOUR = 19;

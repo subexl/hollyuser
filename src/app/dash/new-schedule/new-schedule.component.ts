@@ -76,12 +76,11 @@ export class NewScheduleComponent implements OnInit {
 
         // check if min if within today's closing time, if not, set min to next working day
         // need to set min date to beggining of the day for the datepicker to work
-        if(this.minStart.hour() >= SCHEDULE_END_HOUR ){
+        if(this.minStart.isAfter(moment().hours(SCHEDULE_END_HOUR)) ){
             this.minDay = moment().add(1,'day').startOf('day');
         } else {
             this.minDay = moment().startOf('day');
         }
-
 
     }
 
