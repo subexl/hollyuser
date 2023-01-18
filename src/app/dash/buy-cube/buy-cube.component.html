@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-1 mb-3">
-                <button class="btn btn-outline-secondary pull-left" [routerLink]="['/dash']"><i class="fa fa-arrow-left mr-2"></i>Inapoi</button>
+                <button class="btn btn-outline-secondary pull-left" [routerLink]="['/dash']"><i class="fa fa-arrow-left mr-2"></i>{{'back' | translate}}</button>
         </div>
         <div class="col-lg-11">
             <h3 class="text-center mb-lg-5">
@@ -35,7 +35,10 @@
                 <div class="col-lg-4" *ngIf="selectedCube">
                     <div class="m-0 p-4">
                         <h6 class="text-center">{{'buycube.validity' | translate}}</h6>
-                        <p class="text-center mb-0">{{'buycube.validity2' | translate}}</p>
+                        <p class="text-center mb-0">{{'buycube.validity2' | translate}}
+                            <span *ngIf="selectedCube.cubeCount > 1">{{'buycube.weekendInfo' | translate}}</span>
+                        </p>
+
                         <div class="form-group mb-1 mb-xl-0 text-center" [hidden]="currentUser.remainingCubes">
                             <ui-switch [(ngModel)]="order.weekendAccess" (change)="onWeekendSwitch($event)" ></ui-switch>
                             <label for="switchery" class="pt-1 pl-2 mt-2">{{'buycube.weekend' | translate}}</label>
@@ -43,13 +46,19 @@
 
                         <div class="row justify-content-center mt-4">
                             <div class="text-center">
-                                <p>Apasand butonul de mai jos veti fi redirectionat catre plata online cu card.</p>
-                                <p class="text-bold-700">Veti plati
+                                <p>{{'buycube.pushButton' | translate}}</p>
+                                <p class="text-bold-700">{{'buycube.willPay' | translate}}
                                     <span *ngIf="!order.weekendAccess" >{{selectedCube.weekDaysPrice}} RON</span>
                                     <span *ngIf="order.weekendAccess" >{{selectedCube.weekEndPrice}} RON</span>
-                                    pentru {{selectedCube.cubeCount}} cuburi</p>
+                                    pentru
+                                    <span>
+                                        {{order.cubeCount}}
+                                    </span>
+                                    <span *ngIf="selectedCube.cubeCount > 1">{{'buycube.cubes' | translate}}</span>
+                                    <span  *ngIf="selectedCube.cubeCount == 1">{{'buycube.cube' | translate}}</span>
+                                </p>
                             </div>
-                            <button (click)="buyCube()" class="btn btn-lg btn-outline-success"><i class="fa fa-cart-arrow-down mr-2"></i> {{'Continua spre plata' | translate}}</button>
+                            <button (click)="buyCube()" class="btn btn-lg btn-outline-success mt-3"><i class="fa fa-cart-arrow-down mr-2"></i> {{'buycube.toPay' | translate}}</button>
                         </div>
                     </div>
                 </div>

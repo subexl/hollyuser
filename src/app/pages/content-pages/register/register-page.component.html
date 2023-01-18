@@ -10,11 +10,10 @@
                     <img src="assets/img/login.png" alt="" class="img-fluid">
                 </div>
                 <div [ngClass]="{'col-lg-6': !candidate, 'col-lg-8': candidate}" class=" col-md-12 px-4 py-3">
-                    <h4 class="card-title mb-2">{{'register.user.desc' | translate}}</h4>
                     <!-- candidate verify -->
                     <div [hidden]="candidate">
-                        <p class="font-small-2">Crearea contului este posibil doar dacă ați trecut deja de ora de probă!<br>
-                            Vă rugăm folosiți aceeași adresă e-mail cu care v-ați înregistrat la Ziua Porților Deschise!</p>
+                        <h4 class="card-title mb-2">{{'register.user.desc' | translate}}</h4>
+                        <p class="font-small-2 nl2br">{{'register.user.warn' | translate}}</p>
 
                         <form [formGroup]="registerForm">
                             <!-- <div class="form-group">
@@ -59,6 +58,7 @@
                     <!-- candidate verify -->
 
                     <div [hidden]="!candidate">
+                        <h4 class="card-title mb-2">{{'register.user.start' | translate}}</h4>
                         <form autocomplete="off" class="needs-validation" (ngSubmit)="onFormSubmit()" #candidForm="ngForm">
                             <div *ngIf="client" class="form row">
                                 <div class="col-md-6 mb-0 form-group">
@@ -135,20 +135,21 @@
                             <!-- signature -->
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <label class="mt-1 mr-4">Semnatura</label>
                                     <p>
-                                        Semnati in partatul alaturat.
-                                        Daca completati formularul de pe un calculator, puteti folosi mousul pentru a semna.<br>
-                                        Avem nevoie de semnatura dumneavoastra pentru generarea automata a contractului.
+                                        Semnează în căsuță cu ajutorul mouse-ului sau cu degetul tău.
                                     </p>
                                     <p class="font-small-2">
-                                        *Avem nevoie de semnatura dumneavoastra pentru generarea automata a contractului.
+                                        *Avem nevoie de semnatura ta pentru a genera un contract automat.
                                     </p>
                                 </div>
                                 <div class="col-md-8 d-flex justify-content-center align-content-center">
-                                    <signature-pad #signature [options]="signaturePadOptions"  (drawEnd)="drawComplete()"></signature-pad>
-                                    <div class="d-flex align-items-center justify-content-start ml-4">
-                                        <button *ngIf="client?.signature" class="btn btn-sm btn-outline-danger mb-2" (click)="clearSignature()"><i class="fa fa-times mr-2"></i>Sterge </button>
+                                    <div>
+                                        <label class="mt-1 mr-4 mb-1">Semnătura</label>
+
+                                        <signature-pad #signature [options]="signaturePadOptions"  (drawEnd)="drawComplete()"></signature-pad>
+                                        <div class="d-flex align-items-center justify-content-start ml-4">
+                                            <button *ngIf="client?.signature" class="btn btn-sm btn-outline-danger mt-2" (click)="clearSignature()"><i class="fa fa-times mr-2"></i>Sterge </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

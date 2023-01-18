@@ -78,14 +78,14 @@ export class RegisterPageComponent implements OnInit {
                 this.client.password = this.registerForm.value.password
                 console.log(this.client);
             } else {
-                Swal.fire('Neconfirmat!',`Participarea dumneavoastra la <strong> Ziua Portilor Deschise</strong> nu a fost confirmata <br>
-                <span class="text-muted font-small-3 mt-4 d-block">Daca considerati ca este o greseala va rugam sa ne contactati.</span>`,'warning')
+                Swal.fire('Neconfirmat!',`Participarea ta la <strong> Ziua Porților Deschise</strong> nu a fost confirmată. <br>
+                <span class="text-muted font-small-3 mt-4 d-block">Dacă consideri că este o greseală te rugăm să ne contactezi.</span>`,'warning')
             }
 
             this.spinner.hide();
 
         }, err =>{
-            Swal.fire('Adresa email negasita!','Verificati din nou adresa email!<br> Asigurati-va ca este acelasi pe care l-ati folosit pentru a va inregistra la <strong> Ziua Portilor Deschise.</strong>','error')
+            Swal.fire('Adresă email negăsită!','Verifică din nou adresa email!<br> Asigură-te că este același pe care l-ai folosit pentru a te înregistra la <strong> Ziua Porților Deschise.</strong>','error')
             this.spinner.hide();
         })
 
