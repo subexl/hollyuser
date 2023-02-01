@@ -18,6 +18,7 @@ export class SignupComponent implements OnInit {
     submitted = false;
     locationId = globals.DEFAULT_LOCATION;
     environment = environment;
+    openDays = [];
 
     constructor(private candidServ: CandidatesService,
         private translate: TranslateService,
@@ -30,9 +31,15 @@ export class SignupComponent implements OnInit {
             lastName: ['', [Validators.required]],
             email: ['', [Validators.required]],
             phone: ['', [Validators.required]],
-            lang: ['', [Validators.required]],
+            lang: ['en', [Validators.required]],
+            scheduledDate: ['', [Validators.required]],
             locationId: [this.locationId],
         });
+
+
+        this.candidServ.getOpendays(this.locationId).subscribe( days => {
+            this.openDays = days;
+        })
 
 
     }
@@ -51,7 +58,7 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['/pages/signup-success']);
         },err => {
             console.log(err);
-            if(1062 === err.error.exception.errno){
+            if(409 === err.status){
                 this.translate.get(['signup.duplicateEmail','signup.refresh','signup.alerttitle','back','signup.reloaded']).subscribe(strings => {
                     console.log(strings);
                     Swal.fire({
@@ -65,7 +72,7 @@ export class SignupComponent implements OnInit {
                     .then((result) => {
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
-                            this.candidServ.resetCandidate(this.candidateForm.value.email).subscribe(candidate => {
+                            this.candidServ.resetCandidate(this.candidateForm.value.email, this.candidateForm.value.scheduledDate).subscribe(candidate => {
                                 Swal.fire(strings['signup.reloaded'], '', 'success')
                             })
                         }

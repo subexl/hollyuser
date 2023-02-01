@@ -30,6 +30,11 @@
                         </div>
 
                         <div class="col-md-6 mb-2 form-group">
+                            <label>{{'day' | translate}}</label>
+                            <ng-select aria-autocomplete="none"  [items]="openDays" bindLabel="formattedDay" bindValue="date" formControlName="scheduledDate" required [ngClass]="{ 'is-invalid': submitted && f.scheduledDay.invalid, 'is-valid': submitted && !f.scheduledDay.invalid }"></ng-select>
+                        </div>
+
+                        <div class="col-md-6 mb-2 form-group d-none">
                             <label>{{'lang' | translate}}</label>
                             <ng-select aria-autocomplete="none"  [items]="environment.langs" bindLabel="title" bindValue="id" formControlName="lang" required [ngClass]="{ 'is-invalid': submitted && f.lang.invalid, 'is-valid': submitted && !f.lang.invalid }"></ng-select>
 

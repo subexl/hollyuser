@@ -64,6 +64,11 @@ signature-pad{
     white-space: pre-wrap;
 }
 
+.modal-content,
+.btn {
+    border-radius: 0 !important;
+}
+
 
 // make all DT headers have background on mobile
 @media screen and (max-width: 800px) {

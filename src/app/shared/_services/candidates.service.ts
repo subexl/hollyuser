@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
-import { User } from '../_models';
+import { OpenDay, User } from '../_models';
 import { Candidate } from '../_models/candidate';
 
 @Injectable({
@@ -17,12 +17,16 @@ export class CandidatesService {
         return this.http.post<Candidate>(environment.apiBaseUrl + `public/candidates/signup`, candidate);
     }
 
-    resetCandidate(email: string): Observable<Candidate> {
-        return this.http.patch<Candidate>(environment.apiBaseUrl + `public/candidates/reset`, { email});
+    resetCandidate(email: string, scheduledDate: string): Observable<Candidate> {
+        return this.http.patch<Candidate>(environment.apiBaseUrl + `public/candidates/reset`, { email, scheduledDate});
     }
 
     getCandidate(email: string): Observable<Candidate> {
         return this.http.get<Candidate>(environment.apiBaseUrl + `public/candidates/` +   email);
+    }
+
+    getOpendays(locationId: number): Observable<OpenDay[]> {
+        return this.http.get<OpenDay[]>(environment.apiBaseUrl + `public/openDays/` +   locationId);
     }
 
     createClient(user: User): Observable<User> {

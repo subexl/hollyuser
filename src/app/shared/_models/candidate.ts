@@ -12,7 +12,7 @@ export interface Candidate {
     status: number;
     statusName: string;
     lang: string;
-    scheduledDate: Date;
+    scheduledDate: any;
     note: string;
     entryCode:string;
 }

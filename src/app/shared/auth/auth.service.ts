@@ -91,9 +91,19 @@ export class AuthService {
     }
 
     async reloadUser() {
-        const user = await this.http.get<User>(environment.apiBaseUrl + `auth/reload/` +  this.currentUserValue.email).toPromise();
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(new User(user));
+        try{
+            const user = await this.http.get<User>(environment.apiBaseUrl + `auth/reload/` +  this.currentUserValue.email).toPromise();
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(new User(user));
+        } catch(err) {
+            console.log(err);
+            if('status' in err && err.status === 401){
+                // session expired
+                localStorage.removeItem('currentUser');
+                this.currentUserSubject.next(null);
+                this.router.navigate(['/pages/login']);
+            }
+        }
     }
 
     updatePassword( id: number, oldPassword: string, newPassword:string):Observable<any>{
