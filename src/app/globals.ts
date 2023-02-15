@@ -15,6 +15,11 @@ export enum CandidateStatuses {
 	Lost = 6
 }
 
+export enum DiscountTypes {
+	'FIXED' = 'FIXED',
+	'PERCENT' = 'PERCENT'
+}
+
 export const CUBE_VALIDITY_DAYS = 30;
 export const DEFAULT_GATE = 1;
 
@@ -24,3 +29,6 @@ export const SCHEDULE_MINIMUM_HOURS = 8;
 // working hours interval
 export const SCHEDULE_START_HOUR = 9;
 export const SCHEDULE_END_HOUR = 19;
+
+export const USED_DISCOUNTS = '1';
+export const UNUSED_DISCOUNTS = '0';

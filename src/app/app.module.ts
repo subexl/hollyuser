@@ -36,6 +36,9 @@ import { ToastrModule } from "ngx-toastr";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from "@danielmoncada/angular-datetime-picker";
+import { CheckForUpdateService } from "./shared/_services/check-for-update.service";
+import { LogUpdateService } from "./shared/_services/log-update.service";
+import { PromptUpdateService } from "./shared/_services/prompt-update.service";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -80,6 +83,9 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   providers: [
+    PromptUpdateService,
+    LogUpdateService,
+    CheckForUpdateService,
     AuthService,
     AuthGuard,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },

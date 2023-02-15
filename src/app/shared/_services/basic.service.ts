@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'environments/environment';
 import {Observable } from 'rxjs';
-import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess, User, LearningSession } from '../_models';
+import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess, User, LearningSession, Discount } from '../_models';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +75,12 @@ export class BasicService {
 
     updateSession(session: LearningSession): Observable<LearningSession> {
         return this.http.patch<LearningSession>(environment.apiBaseUrl + `sessions/update`, session);
+    }
+
+
+    // discounts
+    getDiscounts(clientId:number, used = ''): Observable<Discount[]> {
+        return this.http.get<Discount[]>(environment.apiBaseUrl + `discounts/forClient/${clientId}/` + used );
     }
 
 

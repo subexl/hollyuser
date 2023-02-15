@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UNUSED_DISCOUNTS } from 'app/globals';
 
 import { AuthService } from 'app/shared/auth/auth.service';
-import { NetopiaRequest, User } from 'app/shared/_models';
+import { Discount, NetopiaRequest, User } from 'app/shared/_models';
 import { Cube, CubeOrder } from 'app/shared/_models/cube';
 import { BasicService } from 'app/shared/_services';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,6 +17,7 @@ export class BuyCubeComponent implements OnInit {
     cubes: Cube[] = [];
     selectedCube: Cube;
     order: CubeOrder;
+    discounts: Discount[] = [];
     request: NetopiaRequest;
     @ViewChild('cardPayment', { static : false}) public cardPayment: ElementRef;
 
@@ -29,7 +31,13 @@ export class BuyCubeComponent implements OnInit {
         this.order = new CubeOrder(this.currentUser);
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
+
+        // load and autoappy discount(s)
+        // only 1 discount us loaded, limit set at backend
+        this.discounts = await this.basicService.getDiscounts(this.currentUser.id, UNUSED_DISCOUNTS).toPromise();
+
+
         if(this.currentUser.remainingCubes){
             this.basicService.getComplementCubes().subscribe( cubes =>{
                 this.cubes = cubes;
@@ -48,6 +56,7 @@ export class BuyCubeComponent implements OnInit {
             this.order.weekendAccess = this.currentUser.weekendAccess;
         }
         this.order.selectCube(this.selectedCube);
+        this.discounts.map(discount => this.order.applyDiscount(discount));
     }
 
     buyCube(){
@@ -70,6 +79,7 @@ export class BuyCubeComponent implements OnInit {
     onWeekendSwitch(event){
         setTimeout(() => {
             this.order.selectCube(this.selectedCube);
+            this.discounts.map(discount => this.order.applyDiscount(discount));
         }, 100);
     }
 }

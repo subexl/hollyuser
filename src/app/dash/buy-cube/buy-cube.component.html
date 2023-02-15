@@ -46,8 +46,34 @@
 
                         <div class="row justify-content-center mt-4">
                             <div class="text-center">
-                                <p>{{'buycube.pushButton' | translate}}</p>
-                                <p class="text-bold-700">{{'buycube.willPay' | translate}}
+
+                                <ul class="list-group list-group-flush text-left" *ngIf="discounts.length" id="discounts_wrap">
+                                    <li class="list-group-item">
+                                        {{order.cubeCount}}
+                                        <span *ngIf="selectedCube.cubeCount > 1">{{'buycube.cubes' | translate}}</span>
+                                        <span  *ngIf="selectedCube.cubeCount == 1">{{'buycube.cube' | translate}}</span>
+
+                                        <span class="badge bg-light-warning pull-right">
+                                            <span *ngIf="!order.weekendAccess" >{{selectedCube.weekDaysPrice}} RON</span>
+                                            <span *ngIf="order.weekendAccess" >{{selectedCube.weekEndPrice}} RON</span>
+                                        </span>
+                                    </li>
+
+                                    <li *ngFor="let d of discounts" class="list-group-item discount-row">
+                                        {{'discount' | translate}}
+                                        <span class="badge bg-light-warning pull-right">
+                                            {{d.value}}
+                                            <span *ngIf="d.type =='PERCENT'">%</span>
+                                            <span *ngIf="d.type =='FIXED'">RON</span>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item active font-medium-3">
+                                        {{'buycube.willPay' | translate}}
+                                        <span class="pull-right font-weight-bold"> {{order.getTotal()}} RON</span>
+                                    </li>
+                                </ul>
+
+                                <p *ngIf="!discounts.length" class="text-bold-700">{{'buycube.willPay' | translate}}
                                     <span *ngIf="!order.weekendAccess" >{{selectedCube.weekDaysPrice}} RON</span>
                                     <span *ngIf="order.weekendAccess" >{{selectedCube.weekEndPrice}} RON</span>
                                     pentru
@@ -57,8 +83,10 @@
                                     <span *ngIf="selectedCube.cubeCount > 1">{{'buycube.cubes' | translate}}</span>
                                     <span  *ngIf="selectedCube.cubeCount == 1">{{'buycube.cube' | translate}}</span>
                                 </p>
+
+                                <p class="mt-2">{{'buycube.pushButton' | translate}}</p>
                             </div>
-                            <button (click)="buyCube()" class="btn btn-lg btn-outline-success mt-3"><i class="fa fa-cart-arrow-down mr-2"></i> {{'buycube.toPay' | translate}}</button>
+                            <button (click)="buyCube()" class="btn btn-lg btn-outline-success mt-2"><i class="fa fa-cart-arrow-down mr-2"></i> {{'buycube.toPay' | translate}}</button>
                         </div>
                     </div>
                 </div>
