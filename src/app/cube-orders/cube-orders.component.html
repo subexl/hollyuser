@@ -69,10 +69,10 @@
         <ng-template ngx-datatable-header-template >{{'cubesCount' | translate}}</ng-template>
     </ngx-datatable-column>
 
-     <!-- cubes count -->
+     <!-- price count -->
      <ngx-datatable-column name="price" [width]="100" [flexGrow] ="1" cellClass="justify-content-center d-flex align-items-center" headerClass="text-center">
         <ng-template ngx-datatable-header-template >{{'price' | translate}}</ng-template>
-        <ng-template ngx-datatable-cell-template let-value="value">{{value | number: '1.0'}} RON</ng-template>
+        <ng-template ngx-datatable-cell-template let-value="value" let-row="row">{{row.price - row.markdown | number: '1.0'}} RON</ng-template>
     </ngx-datatable-column>
 
     <!-- weekend -->
