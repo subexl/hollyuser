@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
             email: ['', [Validators.required]],
             phone: ['', [Validators.required]],
             lang: ['en', [Validators.required]],
-            scheduledDate: ['', [Validators.required]],
+            scheduledDate: [],
             locationId: [this.locationId],
         });
 

@@ -29,7 +29,7 @@
                             <input type="text" formControlName="phone" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f.phone.invalid, 'is-valid': submitted && !f.phone.invalid }" required>
                         </div>
 
-                        <div class="col-md-6 mb-2 form-group">
+                        <div *ngIf="openDays.length" class="col-md-6 mb-2 form-group">
                             <label>{{'day' | translate}}</label>
                             <ng-select aria-autocomplete="none"  [items]="openDays" bindLabel="formattedDay" bindValue="date" formControlName="scheduledDate" required [ngClass]="{ 'is-invalid': submitted && f.scheduledDay.invalid, 'is-valid': submitted && !f.scheduledDay.invalid }"></ng-select>
                         </div>

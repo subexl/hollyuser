@@ -101,7 +101,8 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-lg-6 col-12">
+
+    <div *ngIf="!environment.production" class="col-xl-3 col-lg-6 col-12">
         <div class="card pointer" (click)="scanForEntry()">
             <div class="card-content">
                 <div class="card-body text-center">

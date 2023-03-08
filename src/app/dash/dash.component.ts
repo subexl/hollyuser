@@ -11,6 +11,7 @@ import { AuthService } from 'app/shared/auth/auth.service';
 import { CUBE_VALIDITY_DAYS, DEFAULT_GATE, SCHEDULE_MINIMUM_HOURS } from 'app/globals';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewScheduleComponent } from './new-schedule/new-schedule.component';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-dash',
@@ -24,6 +25,7 @@ export class DashComponent implements OnInit {
     isMobile = false;
     isTablet = false;
     scheduledSession: LearningSession;
+    environment = environment;
 
     constructor(
         public toastr: ToastrService,

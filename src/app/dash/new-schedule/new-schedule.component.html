@@ -16,11 +16,11 @@
 
                 <div class="col-12 col-md-6 mb-2 form-group" [hidden] = "!day">
                     <label>{{ 'from' | translate }}</label>
-                    <ng-select  [readonly]="!day" (change)="onFromSet($event)" [searchable] = "false" #fromSelect aria-autocomplete="none" name="from"  [items]="fromValues" [(ngModel)]="start" required ></ng-select>
+                    <ng-select appendTo="body"  [readonly]="!day" (change)="onFromSet($event)" [searchable] = "false" #fromSelect aria-autocomplete="none" name="from"  [items]="fromValues" [(ngModel)]="start" required ></ng-select>
                 </div>
                 <div class="col-12 col-md-6 mb-2 form-group" [hidden] = "!day || !start">
                     <label>{{ 'to' | translate }}</label>
-                    <ng-select [readonly]="!start" [searchable] = "false" aria-autocomplete="none" #untilSelect  [items]="untilValues" name="end" [(ngModel)]="end" required ></ng-select>
+                    <ng-select appendTo="body" [readonly]="!start" [searchable] = "false" aria-autocomplete="none" #untilSelect  [items]="untilValues" name="end" [(ngModel)]="end" required ></ng-select>
                 </div>
 
 
