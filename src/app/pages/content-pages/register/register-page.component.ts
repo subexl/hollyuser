@@ -3,6 +3,7 @@ import {  FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SignaturePadComponent, NgSignaturePadOptions } from '@almothafar/angular-signature-pad';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 // import custom validator to validate that password and confirm password fields match
@@ -11,7 +12,6 @@ import { MustMatch } from '../../../shared/directives/must-match.validator';
 import { Candidate, User } from 'app/shared/_models';
 import { CandidateStatuses } from 'app/globals';
 import * as addressInfo from 'app/shared/data/cities';
-import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/shared/auth/auth.service';
 
 @Component({

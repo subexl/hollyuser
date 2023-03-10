@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { LearningSession, User } from 'app/shared/_models';
-import { SCHEDULE_END_HOUR, SCHEDULE_MINIMUM_HOURS, SCHEDULE_START_HOUR } from 'app/globals';
+import { SCHEDULE_END_HOUR, SCHEDULE_END_HOUR_WEEKEND, SCHEDULE_MINIMUM_HOURS, SCHEDULE_START_HOUR, SCHEDULE_START_HOUR_WEEKEND, YMDHis } from 'app/globals';
 import { Moment } from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { BasicService } from 'app/shared/_services';
@@ -28,6 +28,8 @@ export class NewScheduleComponent implements OnInit {
     max: Moment;
     start ;
     end;
+    scheduleStart = SCHEDULE_START_HOUR;
+    scheduleEnd = SCHEDULE_END_HOUR;
 
     fromValues = [];
     untilValues = [];
@@ -55,33 +57,38 @@ export class NewScheduleComponent implements OnInit {
         } else {
             // modifying existing, so need to set input values
             this.day = moment(this.session.start).startOf('day').toDate();
+
+            if(this.day.getDay() == 6){
+                this.scheduleStart = SCHEDULE_START_HOUR_WEEKEND;
+                this.scheduleEnd = SCHEDULE_END_HOUR_WEEKEND;
+            } else {
+                this.scheduleStart = SCHEDULE_START_HOUR;
+                this.scheduleEnd = SCHEDULE_END_HOUR;
+            }
+
             this.buildFromValues();
             this.start = moment(this.session.start).format('HH:mm');
             this.buildUntilValues();
             this.end = moment(this.session.end).format('HH:mm');
         }
-        console.log(this.session);
-
 
         // update global variable
         weekendAccess = this.currentUser.weekendAccess;
-
 
         // set min and max selectable days
         // first let's set the max to users's expirations date
         this.maxDay = moment(this.currentUser.cubesExpireDate).startOf('day');
 
         // calculate minumim moment of start by using hours threshold
-        this.minStart = moment().startOf('hour').add(SCHEDULE_MINIMUM_HOURS,'hours');
+        this.minStart = moment().startOf('hour').add(SCHEDULE_MINIMUM_HOURS + 1,'hours');
 
         // check if min if within today's closing time, if not, set min to next working day
         // need to set min date to beggining of the day for the datepicker to work
-        if(this.minStart.isAfter(moment().hours(SCHEDULE_END_HOUR)) ){
+        if(this.minStart.isSameOrAfter(moment().startOf('hour').hours(this.scheduleEnd)) ){
             this.minDay = moment().add(1,'day').startOf('day');
         } else {
             this.minDay = moment().startOf('day');
         }
-
     }
 
     onFromSet($event){
@@ -91,29 +98,29 @@ export class NewScheduleComponent implements OnInit {
 
     buildFromValues(){
         // start by using start hours
-        this.min = moment(this.day).hours(SCHEDULE_START_HOUR);
+        this.min = moment(this.day).hours(this.scheduleStart);
         // check if nem minimum is in past
         if(this.min.isBefore(this.minStart)){
             this.min = moment(this.minStart);
         }
-        console.log(this.min.format());
+
 
         // check if min if within today's closing time, if not, set min to next working day
-        if(this.min.hour() >= SCHEDULE_END_HOUR ){
-           this.min = moment().add(1,'day').startOf('day').add(SCHEDULE_START_HOUR, 'hours');
+        if(this.min.hour() >= this.scheduleEnd ){
+           this.min = moment().add(1,'day').startOf('day').add(this.scheduleStart, 'hours');
         }
         // set minimum and maximum values for time inputs
         // if current min is before schedule start adjust it
-        if(this.min.hour() < SCHEDULE_START_HOUR){
-            this.min.hour(SCHEDULE_START_HOUR);
+        if(this.min.hour() < this.scheduleStart){
+            this.min.hour(this.scheduleStart);
         }
 
         // first let's set the max to 'min' + maxDailyHours
         this.max = moment(this.min).add(this.currentUser.maxDailyHours,'hours');
 
         // if new max is over the schedule end adjust
-        if(this.max.hour() > SCHEDULE_END_HOUR){
-            this.max.hour(SCHEDULE_END_HOUR);
+        if(this.max.hour() > this.scheduleEnd){
+            this.max.hour(this.scheduleEnd);
         }
 
         // now we have inital max and min let's build selectable hours
@@ -123,7 +130,9 @@ export class NewScheduleComponent implements OnInit {
         do{
             this.fromValues.push(fromMin.format('HH:mm'));
             fromMin.add(30, 'minutes');
-        } while (fromMin.hours() < SCHEDULE_END_HOUR - 1);
+        } while (fromMin.hours() < this.scheduleEnd - 1);
+        // add last value manially
+        this.fromValues.push(fromMin.format('HH:mm'));
 
         // if start already has a value check if it's valid
         if(this.start && this.fromSelect && !this.fromValues.includes(this.start)){
@@ -133,7 +142,6 @@ export class NewScheduleComponent implements OnInit {
 
 
     buildUntilValues(){
-        console.log('buildUntilValues..', this.start);
 
         this.untilValues = [];
         if(!this.start){
@@ -146,7 +154,7 @@ export class NewScheduleComponent implements OnInit {
         do{
             this.untilValues.push(untilMin.format('HH:mm'));
             untilMin.add(30, 'minutes');
-        } while (untilMin.hours() <= SCHEDULE_END_HOUR && (untilMin.hours() - parseInt(h) <= this.currentUser.maxDailyHours ));
+        } while (untilMin.hours() <= this.scheduleEnd && (untilMin.hours() - parseInt(h) <= this.currentUser.maxDailyHours ));
 
         // if started with roun hours remove lat half hour
         if('00' === m){
@@ -161,6 +169,17 @@ export class NewScheduleComponent implements OnInit {
 
 
     onDaySelected(){
+
+        // set schedule hours based on day on the week
+        // saturday has differens schedule
+        if(this.day.getDay() == 6){
+            this.scheduleStart = SCHEDULE_START_HOUR_WEEKEND;
+            this.scheduleEnd = SCHEDULE_END_HOUR_WEEKEND;
+        } else {
+            this.scheduleStart = SCHEDULE_START_HOUR;
+            this.scheduleEnd = SCHEDULE_END_HOUR;
+        }
+
         this.buildFromValues();
         this.buildUntilValues();
     }
@@ -171,7 +190,6 @@ export class NewScheduleComponent implements OnInit {
 
         this.session.start = moment(this.day).hours(h).minutes(m).toDate();
         this.session.end = moment(this.day).hours(eh).minutes(em).toDate();
-        console.log(this.session);
 
         if(this.session.id !== 0){
             this.basicServ.updateSession(this.session).subscribe(session => {

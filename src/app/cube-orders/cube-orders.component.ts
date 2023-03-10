@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 import { AuthService } from 'app/shared/auth/auth.service';
 import { CubeOrder, Invoice, User } from 'app/shared/_models';
 import { BasicService } from 'app/shared/_services';
-import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-cube-orders',

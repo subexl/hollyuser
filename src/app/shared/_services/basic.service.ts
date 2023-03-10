@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'environments/environment';
-import {Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Location, Cube, CubeOrder, NetopiaRequest, GateAccess, User, LearningSession, Discount } from '../_models';
 
 @Injectable({

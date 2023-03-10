@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import Swal from 'sweetalert2';
+
 import { CandidatesService } from 'app/shared/_services/candidates.service';
 import { environment } from 'environments/environment';
-import Swal from 'sweetalert2';
 import * as globals from 'app/globals';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',

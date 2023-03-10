@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from 'app/shared/auth/auth.service';
-import { User } from 'app/shared/_models';
 import { NgxSpinnerService } from 'ngx-spinner';
+
+import { User } from 'app/shared/_models';
 
 @Component({
   selector: 'app-edit',

@@ -28,7 +28,10 @@ export const SCHEDULE_MINIMUM_HOURS = 8;
 
 // working hours interval
 export const SCHEDULE_START_HOUR = 9;
+export const SCHEDULE_START_HOUR_WEEKEND = 9;
 export const SCHEDULE_END_HOUR = 19;
+export const SCHEDULE_END_HOUR_WEEKEND = 14;
 
 export const USED_DISCOUNTS = '1';
 export const UNUSED_DISCOUNTS = '0';
+export const YMDHis = 'YYYY-MM-DD HH:mm:ss'; //minutes
