@@ -38,15 +38,16 @@ export class BuyCubeComponent implements OnInit {
         this.discounts = await this.basicService.getDiscounts(this.currentUser.id, UNUSED_DISCOUNTS).toPromise();
 
 
-        if(this.currentUser.remainingCubes){
-            this.basicService.getComplementCubes().subscribe( cubes =>{
-                this.cubes = cubes;
-            })
-        } else {
+        // we allow all cubes to be bought as of 16-10-23
+        // if(this.currentUser.remainingCubes){
+        //     this.basicService.getComplementCubes().subscribe( cubes =>{
+        //         this.cubes = cubes;
+        //     })
+        // } else {
             this.basicService.getMainCubes().subscribe( cubes =>{
                 this.cubes = cubes;
             })
-        }
+        // }
     }
 
     selectCube(cube:Cube){
